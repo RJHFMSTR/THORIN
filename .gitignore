@@ -1,2 +1,2 @@
-*
-!.gitignore
+pipeline/step0_download_genotype/data/
+pipeline/step1_surrogate_parents/data/
