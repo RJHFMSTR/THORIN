@@ -1,0 +1,77 @@
+#COMPILER MODE C++11
+CXX=g++ -std=c++11
+
+# LIBS  [SPECIFY YOUR OWN PATHS]
+jura_cluster: CXXFLAG=-O3
+jura_cluster: LDFLAG=-O3
+jura_cluster: HTSLIB_INC=/software/UHTS/Analysis/samtools/1.4/include
+jura_cluster: HTSLIB_LIB=/software/UHTS/Analysis/samtools/1.4/lib64/libhts.a
+jura_cluster: BOOST_INC=/software/include
+jura_cluster: BOOST_LIB_IO=/software/lib64/libboost_iostreams.a
+jura_cluster: BOOST_LIB_PO=/software/lib64/libboost_program_options.a
+
+#COMPILER & LINKER FLAGS
+
+#DYNAMIC LIBRARIES
+DYN_LIBS=-lz -lbz2 -lm -lpthread -llzma
+
+
+
+EXEFILE=bin/thorin_static
+BFILE=bin/thorin
+
+HFILE=$(shell find src -name *.h)
+CFILE=$(shell find src -name *.cpp)
+OFILE=$(shell for file in `find src -name *.cpp`; do echo obj/$$(basename $$file .cpp).o; done)
+VPATH=$(shell for file in `find src -name *.cpp`; do echo $$(dirname $$file); done)
+
+
+
+# static desktop Robin
+static_exe_robin_laptop: CXXFLAG=-O2 -mavx2 -mfma -D__COMMIT_ID__=\"$(COMMIT_VERS)\" -D__COMMIT_DATE__=\"$(COMMIT_DATE)\"
+static_exe_robin_laptop: LDFLAG=-O2
+#static_exe_robin_laptop: HTSSRC=/home/rhofmeis/Dropbox/LIB
+static_exe_robin_laptop: HTSSRC=../../../../LIB/
+static_exe_robin_laptop: HTSLIB_INC=$(HTSSRC)/htslib_minimal
+static_exe_robin_laptop: HTSLIB_LIB=$(HTSSRC)/htslib_minimal/libhts.a
+static_exe_robin_laptop: BOOST_INC=/usr/include
+static_exe_robin_laptop: BOOST_LIB_IO=$(HTSSRC)/boost/lib/libboost_iostreams.a
+static_exe_robin_laptop: BOOST_LIB_PO=$(HTSSRC)/boost/lib/libboost_program_options.a
+static_exe_robin_laptop: $(EXEFILE)
+
+
+# static Robin VM
+static_exe_robin_desktop: CXXFLAG=-O2 -mavx2 -mfma -D__COMMIT_ID__=\"$(COMMIT_VERS)\" -D__COMMIT_DATE__=\"$(COMMIT_DATE)\"
+static_exe_robin_VM: LDFLAG=-O2
+static_exe_robin_VM: HTSSRC=/home/rhofmeis/Dropbox/LIB
+static_exe_robin_VM: HTSLIB_INC=$(HTSSRC)/htslib_minimal
+static_exe_robin_VM: HTSLIB_LIB=$(HTSSRC)/htslib_minimal/libhts.a
+static_exe_robin_VM: BOOST_INC=/home/rhofmeis/Dropbox/LIB/boost/include
+static_exe_robin_VM: BOOST_LIB_IO=$(HTSSRC)/boost/lib/libboost_iostreams.a
+static_exe_robin_VM: BOOST_LIB_PO=$(HTSSRC)/boost/lib/libboost_program_options.a
+static_exe_robin_VM: $(EXEFILE)
+static_exe_robin_VM: DYN_LIBS=/usr/lib/x86_64-linux-gnu/libz.a /usr/lib/x86_64-linux-gnu/libbz2.a /usr/lib/x86_64-linux-gnu/liblzma.a /usr/lib/x86_64-linux-gnu/libm.a /usr/lib/x86_64-linux-gnu/libpthread.a /usr/local/lib/libcurl.a
+
+
+
+
+#COMPILATION RULES
+all: $(BFILE)
+
+$(BFILE): $(OFILE)
+	$(CXX) $(LDFLAG) $^ $(HTSLIB_LIB) $(BOOST_LIB_IO) $(BOOST_LIB_PO) -o $@ $(DYN_LIBS)
+
+$(EXEFILE): $(OFILE)
+	$(CXX) $(LDFLAG) -static -static-libgcc -static-libstdc++ -pthread -o $(EXEFILE) $^ $(HTSLIB_LIB) $(BOOST_LIB_IO) $(BOOST_LIB_PO) -Wl,-Bstatic $(DYN_LIBS)
+
+
+
+
+obj/%.o: %.cpp $(HFILE)
+	$(CXX) $(CXXFLAG) -c $< -o $@ -Isrc -I$(HTSLIB_INC) -I$(BOOST_INC)
+
+clean: 
+	rm -f obj/*.o $(BFILE) $(EXEFILE)
+	
+	
+
