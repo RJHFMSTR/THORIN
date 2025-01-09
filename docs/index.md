@@ -7,8 +7,7 @@ permalink: /
 
 ---
 
-![alt text](https://github.com/RJHFMSTR/THORIN/blob/main/docs/assets/images/Presentation1/Slide1.png)
-
+![alt text](https://github.com/RJHFMSTR/THORIN/blob/main/docs/assets/images/Presentation1/Slide1.png?raw=true)
 
 
 <!---
