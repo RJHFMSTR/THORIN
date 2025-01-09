@@ -8,10 +8,11 @@ permalink: /
 ---
 
 ![alt text](https://github.com/odelaneau/shapeit5/blob/main/docs/assets/images/branding/shapeit5_logo.png?raw=true)
+![alt text](https://github.com/RJHFMSTR/THORIN/blob/main/docs/assets/images/Presentation1/Slide1.png?raw=true)
 
 
 <!---
-# SHAPEIT5
+# THORIN
 {: .fs-9 .fw-500 }
 -->
 
