@@ -7,7 +7,7 @@ permalink: /
 
 ---
 
-![alt text](https://github.com/odelaneau/shapeit5/blob/main/docs/assets/images/branding/shapeit5_logo.png?raw=true)
+![alt text](https://github.com/rjhfmstr/thorin/blob/main/docs/assets/images/branding/shapeit5_logo.png?raw=true)
 
 <!---
 # SHAPEIT5
@@ -15,7 +15,7 @@ permalink: /
 -->
 
 <!---
-**T**arget **H**aplotype **OR**igin **I**nference version **1.2**
+**T**arget **H**aplotype **OR**igin **IN**ference version **1.2**
 {: .fs-5 }
 -->
 
