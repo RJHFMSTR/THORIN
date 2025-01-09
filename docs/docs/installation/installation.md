@@ -8,3 +8,5 @@ permalink: /docs/installation
 
 # Installation
 
+Installation instructions of SHAPEIT5
+{: .fs-6 .fw-300 }
