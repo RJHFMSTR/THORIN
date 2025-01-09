@@ -41,7 +41,6 @@ Hofmeister RJ, et al. [Parent-of-Origin inference and its role in the genetic ar
 ---
 
 [Get started now](#getting-started){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 .mx-auto }
-[View source code on GitHub](https://github.com/odelaneau/shapeit5){: .btn .fs-5 .mb-4 .mb-md-0 }
-
+[View source code on GitHub](https://github.com/rjhfmstr/thorin){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 
