@@ -8,7 +8,8 @@ permalink: /
 ---
 
 ![alt text](https://github.com/RJHFMSTR/THORIN/blob/main/docs/assets/images/Presentation1/Slide1.png?raw=true)
-
+<img src="https://github.com/RJHFMSTR/THORIN/blob/main/docs/assets/images/Presentation1/Slide1.png?raw=true" width="48">
+<pre> </pre>
 
 <!---
 # THORIN
