@@ -10,7 +10,7 @@ permalink: /
 ![alt text](https://github.com/odelaneau/shapeit5/blob/main/docs/assets/images/branding/shapeit5_logo.png?raw=true)
 ![alt text](https://github.com/RJHFMSTR/THORIN/blob/main/docs/assets/images/Presentation1/Slide1.png?raw=true)
 ![alt text](https://www.dropbox.com/scl/fi/nyjlo9oim1cry21vajpgr/Slide1.png?rlkey=3ut0fexg9rux87n059s6hj9lv&st=pyfv2i6w&dl=0!)
-
+![alt text](https://github.com/RJHFMSTR/THORIN/blob/main/docs/assets/images/logo.png?raw=true)
 
 <!---
 # THORIN
