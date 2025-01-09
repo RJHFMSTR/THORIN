@@ -1,35 +1,47 @@
 ---
+layout: default
 title: Home
-layout: home
+nav_order: 1
+description: "THORIN is a tool for mapping Identify-By-Descent (IBD) and inferring the Parent-of-Origin of alleles."
+permalink: /
+
 ---
 
-This is a test1 *bare-minimum* template to create a Jekyll site that uses the [Just the Docs] theme. You can easily set the created site to be published on [GitHub Pages] – the [README] file explains how to do that, along with other details.
+![alt text](https://github.com/odelaneau/shapeit5/blob/main/docs/assets/images/branding/shapeit5_logo.png?raw=true)
 
-If [Jekyll] is installed on your computer, you can also build and preview the created site *locally*. This lets you test changes before committing them, and avoids waiting for GitHub Pages.[^1] And you will be able to deploy your local build to a different platform than GitHub Pages.
+<!---
+# SHAPEIT5
+{: .fs-9 .fw-500 }
+-->
 
-More specifically, the created site:
+<!---
+**T**arget **H**aplotype **OR**igin **I**nference version **1.2**
+{: .fs-5 }
+-->
 
-- uses a gem-based approach, i.e. uses a `Gemfile` and loads the `just-the-docs` gem
-- uses the [GitHub Pages / Actions workflow] to build and publish the site on GitHub Pages
+---
 
-Other than that, you're free to customize sites that you create with this template, however you like. You can easily change the versions of `just-the-docs` and Jekyll it uses, as well as adding further plugins.
+## About
 
-[Browse our documentation][Just the Docs] to learn more about how to use this theme.
+THORIN is a tool for mapping Identify-By-Descent (IBD) and inferring the Parent-of-Origin of alleles.
 
-To get started with creating a site, simply:
+## News
 
-1. click "[use this template]" to create a GitHub repository
-2. go to Settings > Pages > Build and deployment > Source, and select GitHub Actions
+{: .new }
+> **Version `1.2.0` is now available!**
+> See [the CHANGELOG](https://github.com/odelaneau/shapeit5/blob/main/docs/CHANGELOG.md) for details.
 
-If you want to maintain your docs in the `docs` directory of an existing project repo, see [Hosting your docs from an existing project repo](https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md#hosting-your-docs-from-an-existing-project-repo) in the template README.
 
-----
+## Citation
 
-[^1]: [It can take up to 10 minutes for changes to your site to publish after you push the changes to GitHub](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll#creating-your-site).
+If you use THORIN in your research work, please cite the following paper:
 
-[Just the Docs]: https://just-the-docs.github.io/just-the-docs/
-[GitHub Pages]: https://docs.github.com/en/pages
-[README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
-[Jekyll]: https://jekyllrb.com
-[GitHub Pages / Actions workflow]: https://github.blog/changelog/2022-07-27-github-pages-custom-github-actions-workflows-beta/
-[use this template]: https://github.com/just-the-docs/just-the-docs-template/generate
+Hofmeister RJ, et al. [Parent-of-Origin inference and its role in the genetic architecture of complex traits: evidence from ∼220,000 individuals](https://www.medrxiv.org/content/10.1101/2024.12.03.24318392v1)
+
+---
+
+[Get started now](#getting-started){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 .mx-auto }
+[View source code on GitHub](https://github.com/odelaneau/shapeit5){: .btn .fs-5 .mb-4 .mb-md-0 }
+
+
+
