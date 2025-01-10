@@ -2,10 +2,39 @@ title: THORIN
 description: THORIN is a tool for mapping Identify-By-Descent (IBD) and inferring the Parent-of-Origin of alleles.
 theme: just-the-docs
 url: https://rjhfmstr.github.io/thorin
+logo : /assets/images/logo.png
+title_only_logo: false
 
 
+
+
+# Enable or disable heading anchors
+heading_anchors: true
 # Aux links for the upper right navigation
 aux_links:
   "THORIN on GitHub":
     - "//github.com/RJHFMSTR/THORIN"
+# Makes Aux links open in a new tab. Default is false
+aux_links_new_tab: true
+
+# Sort order for navigation links
+# nav_sort: case_insensitive # default, equivalent to nil
+nav_sort: case_sensitive # Capital letters sorted before lowercase
+
+# External navigation links
+nav_external_links:
+  - title: THORIN on GitHub
+    url: https://github.com/RJHFMSTR/THORIN
+
+# Footer content
+# appears at the bottom of every page's main content
+
+# Back to top link
+back_to_top: true
+back_to_top_text: "Back to top"
+
+# Footer last edited timestamp
+last_edit_timestamp: true # show or hide edit time - page must have `last_modified_date` defined in the frontmatter
+last_edit_time_format: "%b %e %Y at %I:%M %p" # uses ruby's time format: https://ruby-doc.org/stdlib-2.7.0/libdoc/time/rdoc/Time.html
+
 
