@@ -53,7 +53,7 @@ Hofmeister RJ, et al. [Parent-of-Origin inference and its role in the genetic ar
 
 ## Getting started
 
-- [See documentation]({{site.baseurl}}{% link docs/documentation/documentation.md %})
+- [See documentation](https://rjhfmstr.github.io/THORIN/docs/documentation)
 
 ---
 
