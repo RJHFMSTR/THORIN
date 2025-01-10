@@ -7,13 +7,22 @@ permalink: /
 
 ---
 
+
 ![](docs/assets/images/logo_thorin.png?raw=true)
 
-<img src="https://github.com/RJHFMSTR/THORIN/blob/main/docs/assets/images/Presentation1/Slide1.png?raw=true" width="48">
-<pre> </pre>
+---
 
-<img src="https://github.com/odelaneau/shapeit5/blob/main/docs/assets/images/branding/shapeit5_logo.png?raw=true" width="48">
-<pre> </pre>
+![](/docs/assets/images/logo_thorin.png?raw=true)
+
+---
+
+![](/assets/images/logo_thorin.png?raw=true)
+
+---
+
+![](assets/images/logo_thorin.png?raw=true)
+
+---
 
 <!---
 # THORIN
