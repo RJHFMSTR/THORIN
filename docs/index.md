@@ -9,10 +9,19 @@ permalink: /
 
 1
 ![](docs/assets/images/logo_thorin.png?raw=true)
+
+---
+
 2
 ![](/docs/assets/images/logo_thorin.png?raw=true)
+
+---
+
 3
 ![](/assets/images/logo_thorin.png?raw=true)
+
+---
+
 4
 ![](assets/images/logo_thorin.png?raw=true)
 
@@ -59,6 +68,23 @@ Hofmeister RJ, et al. [Parent-of-Origin inference and its role in the genetic ar
 ## Getting started
 
 - [See documentation](https://rjhfmstr.github.io/THORIN/docs/documentation)
+
+---
+
+## Description
+
+THORIN is a tool to map Identity-by-Descent between a focal individual and reference individuals that is particularly well suited for inferring the parent-of-origin of alleles, by using surrogate parent groups as reference individuals. It is composed of the following options:
+
+- **IBD probability per variant site**. THORIN can output the probability of sharing IBD at each variant sites.
+- **IBD probability per variant site, VCF/BCF format**. The output file can be formatted as indexable VCF/BCF file to allow easy extraction of individuals or genomic region of interests.
+- **IBD segments**. THORIN can output shared IBD haplotype segments.
+- **IBD scaffold**. THORIN can provide an IBD-based scaffold for re-estimating haplotype, both for correcting long-range intra-chromosomal phasing errors and for performing inter-chromosomal phasing.
+
+
+[IBD per variant site](https://rjhfmstr.github.io/THORIN/docs/documentation/inputs_and_outputs.html#1-ibd-per-variant-site){: .btn .btn-blue }
+[IBD probability per variant site, VCF/BCF format](https://rjhfmstr.github.io/THORIN/docs/documentation/inputs_and_outputs.html#2-ibd-per-variant-site-variant-call-format){: .btn .btn-blue }
+[IBD segments](https://rjhfmstr.github.io/THORIN/docs/documentation/inputs_and_outputs.html#3-ibd-segments){: .btn .btn-blue }
+[IBD scaffold](https://rjhfmstr.github.io/THORIN/docs/documentation/inputs_and_outputs.html#4-ibd-scaffold){: .btn .btn-blue }
 
 ---
 
