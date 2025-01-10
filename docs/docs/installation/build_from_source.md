@@ -9,5 +9,5 @@ permalink: /docs/installation/build_from_source
 
 # Build from source
 
-Installation instructions of SHAPEIT5
+Installation instructions of THORIN, version 1.2.0
 {: .fs-6 .fw-300 }

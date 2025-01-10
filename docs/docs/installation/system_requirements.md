@@ -18,7 +18,7 @@ permalink: /docs/installation/build_from_source/system_requirements
 ---
 
 ## System requirements
-SHAPEIT5 is a set of C++ tools covering the process of haplotype phasing in large datasets. In order to compile, we require a modern Linux operating system and a version of GCC > 4.4. We recommend to use the latest available version for your system.
+THORIN is a C++ tools for Identity-By-Descent (IBD) mapping between individuals and Parent-of-Origin (PofO) inference. In order to compile, we require a modern Linux operating system and a version of GCC > 4.4. We recommend to use the latest available version for your system.
 
 For example running the following instruction on Ubuntu 20.04 focal:
 

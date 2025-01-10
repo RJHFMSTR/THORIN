@@ -18,7 +18,7 @@ permalink: /docs/installation/build_from_source/required_libraries
 ---
 
 ## Required libraries
-SHAPEIT5 requires several libraries installed on the system. Here we assume most of the libraries are available, and we focus on two main libraries:
+THORIN requires several libraries installed on the system. Here we assume most of the libraries are available, and we focus on two main libraries:
 
 - HTSlib version >= 1.7: A C library for reading/writing high-throughput sequencing data.
 - BOOST version >= 1.65: A set of peer-reviewed portable C++ source libraries. SHAPEIT5 uses two specific BOOST libraries: `iostreams` and `program_options`.
@@ -41,7 +41,7 @@ After this, you'll find the libhts.a inside your current directory and the inclu
 
 
 ### Boost
-As SHAPEIT5 only requires few of the boost libraries, we'll build the smallest possible boost build, without requiring root privileges. Please refer to the [Boost installation instructions](https://www.boost.org/doc/libs/1_73_0/more/getting_started/unix-variants.html#easy-build-and-install) for complete details. Here we provide a basic script to the minimal build of Boost v1.73.0 required to run SHAPEIT5:
+As THORIN only requires few of the boost libraries, we'll build the smallest possible boost build, without requiring root privileges. Please refer to the [Boost installation instructions](https://www.boost.org/doc/libs/1_73_0/more/getting_started/unix-variants.html#easy-build-and-install) for complete details. Here we provide a basic script to the minimal build of Boost v1.73.0 required to run THORIN:
 
 <div class="code-example" markdown="1">
 ```bash
