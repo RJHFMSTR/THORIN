@@ -140,6 +140,6 @@ The `Prob` column contain the class of IBD segment identified:
 #### 4. IBD scaffold
 In version 1.2.0, we provide an option that uses the IBD segment to directly output a scaffold file for intra- and inter-chromosomal phasing. Considering the four different classes of `Prob` describe in the previous section, the scaffolding step works on the fact that haplotype segment can be re-ordered according to their class. For example, let's consider a focal individual having two haplotype segment of class `A` and one haplotype segment of class `B` within the same chromosome. The segment of class `B` can be re-order in the scaffold file by reverting the phase of the variant whithin that segment, so that variant are now on the same phase as segments of class `A`. The same principle applies to inter-chromosomal phasing, where basically all haplotype segments across all chromosomes are re-order in class `A` in the scaffold file.
 
-This is provided by the option `--phasing`.
+This is provided by the option `--scaffold`.
 
 

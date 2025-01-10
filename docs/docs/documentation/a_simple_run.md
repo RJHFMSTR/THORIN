@@ -84,7 +84,7 @@ OUT_SEG=data_chr20.thorin_segments.prob
 ---
 
 #### IBD scaffold
-To output the scaffold based on IBD probabilities, use the option `--phasing`:
+To output the scaffold based on IBD probabilities, use the option `--scaffold`:
 
 <div class="code-example" markdown="1">
 ```bash
@@ -96,7 +96,7 @@ MAP=chr20.b38.gmap.gz
 OUT=data_chr20.thorin.prob.bcf
 OUT_SCAF=data_chr20.thorin_scaffold.vcf.gz
 
-./thorin_v1.2 -I ${IN} -H ${UNR} -M ${MAP} -R chr${CHR} -G ${GRP} -O ${OUT} --phasing ${OUT_SCAF}
+./thorin_v1.2 -I ${IN} -H ${UNR} -M ${MAP} -R chr${CHR} -G ${GRP} -O ${OUT} --scaffold ${OUT_SCAF}
 
 ```
 </div>

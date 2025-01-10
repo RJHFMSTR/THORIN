@@ -9,7 +9,7 @@ THORIN is a tool for mapping Identify-By-Descent (IBD) and inferring the Parent-
 THORIN v1.2 uses the same algorithm as in THORIN v1.1, but offers the opportunity to
 * write the ouptut in a vcf.gz or bcf format (add the suffix vcf.gz/bcf to the output file)
 * output IBD segments (option --ibd)
-* output an IBD-based scaffold VCF/BCF file that allows re-estimation of haplotype to perform inter-chromosomal phasing (option --phasing)
+* output an IBD-based scaffold VCF/BCF file that allows re-estimation of haplotype to perform inter-chromosomal phasing (option --scaffold)
 
 
 
