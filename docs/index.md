@@ -87,6 +87,9 @@ email, or any other method with the owners of this repository before making a ch
 {% endfor %}
 </ul>
 
+
+---
+
 We thank the [Just the Docs](https://github.com/just-the-docs/just-the-docs) developers, who made this awesome theme for Jekyll.
 
 
