@@ -35,9 +35,11 @@ THORIN is a tool for mapping Identify-By-Descent (IBD) and inferring the Parent-
 
 ## Citation
 
-If you use THORIN in your research work, please cite the following paper:
+If you use THORIN in your research, please cite the following paper:
 
-Hofmeister RJ, et al. [Parent-of-Origin inference and its role in the genetic architecture of complex traits: evidence from ∼220,000 individuals](https://www.medrxiv.org/content/10.1101/2024.12.03.24318392v1)
+[Hofmeister, R.J. et al. Parent-of-Origin inference for biobanks. Nature Communication 2022. https://doi.org/10.1038/s41467-022-34383-6](https://www.nature.com/articles/s41467-022-34383-6)
+
+[Hofmeister RJ, et al. Parent-of-Origin inference and its role in the genetic architecture of complex traits: evidence from ∼220,000 individuals](https://www.medrxiv.org/content/10.1101/2024.12.03.24318392v1)
 
 ---
 

@@ -16,7 +16,7 @@ THORIN v1.2 uses the same algorithm as in THORIN v1.1, but offers the opportunit
 
 ## Citation
 
-If you use the THORIN in your research work, please cite the following papers:
+If you use THORIN in your research work, please cite the following papers:
 
 [Hofmeister, R.J. et al. Parent-of-Origin inference for biobanks. Nature Communication 2022. https://doi.org/10.1038/s41467-022-34383-6](https://www.nature.com/articles/s41467-022-34383-6)
 
