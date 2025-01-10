@@ -1,11 +1,9 @@
 ---
 layout: default
-title: phase_common [SHAPEIT4]
+title: IBD per variant site
 nav_order: 1
 parent: Documentation
 ---
-# phase_common [formerly known as SHAPEIT4]
-{: .no_toc .text-center }
 
 ## Table of contents
 {: .no_toc .text-delta }
