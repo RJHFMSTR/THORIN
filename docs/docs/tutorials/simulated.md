@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Simulated WGS data
+title: Parent-of-origin inference tutorial
 nav_order: 1
 parent: Tutorials
 ---
@@ -15,9 +15,7 @@ parent: Tutorials
 
 ---
 
-**For any question on imputation, please contact [Simone Rubinacci](https://srubinacci.github.io/).** 
 
----
 
 ## Rationale
 SHAPEIT5 is a two-step approach that treats each chromosome independently and works as follows:
