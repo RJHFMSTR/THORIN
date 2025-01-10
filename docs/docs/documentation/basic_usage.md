@@ -95,7 +95,49 @@ In the output, columns correspond to:
 - CM : centimorgan
 - additional columns: IBD probability based on the `.group` file.
 
-The header of additional columns are formatted in such way that the first element is the focal individual ID, the second element is the `GID` (as specified in the `.group` file, or `HOLE` for unrelated individuals), and the third element is the haploype number.
+The header of additional columns are formatted in such way that the first element is the focal individual ID, the second element is the `GID` (as specified in the `.group` file, or `HOLE` for unrelated individuals), and the third element is the haploype number. For example:
+- `sample\_1_sample\_2_0` : IBD probability between the focal individual `sample\_1` and the reference individual `sample\_2` in the haplotype 0.
+- `sample\_1_HOLE_0` : IBD probability between the focal individual `sample\_1` and the set of unrelated individuals in the haplotype 0. If this value is high, it means that there is no IBD sharing with any the reference individuals.
+- `sample\_4_GID\_1_1` : IBD probability between the focal individual `sample\_4` and the reference individuals grouped in `GID\_1` in the haplotype 1.
+
+The IBD probabilities for each of the focal individual haplotypes must sum to 1, so that a high IBD probability with `HOLE` (i.e, unrelated individuals) means that there is no IBD sharing with any of the specified reference individual.
+
+
+
+
+#### IBD per variant site, variant call format
+In version 1.2.0, we provide an option that directly reformat the output file in a `.vcf.gz` or `.bcf` format. This output can also be indexed and manupulated using standard tools such as bcftools. We find this format more suitable to directly extract a specific focal individual - reference individual pair, or a given genomic region. 
+
+This is implemented simply by adding `.vcf.gz` or `.bcf` to the output file name.
+
+
+#### IBD segments
+In version 1.2.0, we provide an option to aggegate the IBD probabilities of consecutive variant into IBD segments. This is achieved using the option `--ibd`. This typically works well when the focal individual has one or two groups of reference individuals, let's say `GID1` and `GID2`, but has not been tested for more. This corresponds to the setting of two surrogate parents groups, the maternal one and the paternal one, as typically used for inferring the parental origin of haplotypes.
+
+The output file as the following format:
+- CHR : chromosome ID
+- start : start position of the IBD segment
+- end : end position of the IBD segment
+- Prob : class of IBD
+- length\_CM: length of the IBD segment in centimorgan
+- target : focal individual ID
+
+The `Prob` column contain the class of IBD segment identified:
+- A : haplotype 0 is shared with `GID1`  and haplotype 1 is shared with `GID2`.
+- B : haplotype 0 is shared with `GID2`  and haplotype 1 is shared with `GID1`.
+- C : both haplotype are not in IBD with neither `GID1` nor `GID2`.
+- D : both haplotype are in IBD with the same reference individual group.
+
+
+
+#### IBD scaffold
+In version 1.2.0, we provide an option that uses the IBD segment to directly output a scaffold file for intra- and inter-chromosomal phasing. Considering the four different classes of `Prob` describe in the previous section, the scaffolding step works on the fact that haplotype segment can be re-ordered according to their class. For example, let's consider a focal individual having two haplotype segment of class `A` and one haplotype segment of class `B` within the same chromosome. The segment of class `B` can be re-order in the scaffold file by reverting the phase of the variant whithin that segment, so that variant are now on the same phase as segments of class `A`. The same principle applies to inter-chromosomal phasing, where basically all haplotype segments across all chromosomes are re-order in class `A` in the scaffold file.
+
+This is provided by the option `--phasing`.
+
+
+---
+### A simple run
 
 
 ---
