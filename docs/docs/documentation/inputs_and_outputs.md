@@ -14,7 +14,7 @@ parent: Documentation
 ---
 
 ### Description
-We explain here the main utility and usage of the THORIN tool to map IBD between a focal individual and reference individual(s).
+We explain here the main files used by the THORIN tool to map IBD between a focal individual and reference individual(s).
 
 ---
 
@@ -56,7 +56,7 @@ bcftools view -S ${SAMP} -Ob -o ${OUT} ${IN} && bcftools index ${OUT}
 
 ---
 
-### Input data
+### Genotype input data
 The input data must be indexed `.vcf.gz` or `.bcf` format containing at least all the focal individuals and reference individuals listed in your `.group` file. To speed-up computation of large datasets, you can subset your cohort file to include only those individuals using:
 
 <div class="code-example" markdown="1">
