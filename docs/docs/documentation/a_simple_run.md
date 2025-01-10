@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Inputs and outputs
+title: Usage
 nav_order: 1
 parent: Documentation
 ---
