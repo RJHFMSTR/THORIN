@@ -84,15 +84,16 @@ An example of output file is presented below:
 | #CHROM | POS | IDX | CM  | sample\_1_sample\_2_0 | sample\_1_sample\_3_0 | sample\_1_HOLE_0 | sample\_1_sample\_2_1 | sample\_1_sample\_3_1 | sample\_1_HOLE_1 | sample\_4_GID\_1_0 | sample\_4_GID\_2_0 | sample\_4_HOLE_0 | sample\_4_GID\_1_1 | sample\_4_GID\_2_1 | sample\_4_HOLE_1|
 |:-------|:----|:----|:----|:----------------------|:----------------------|:-----------------|:----------------------|:----------------------|:-----------------|:-------------------|:-------------------|:-----------------|:-------------------|:-------------------|:----------------|
 |:-------|: 1  | 0   | 0.0 | 0.0                   | 1.0                   | 0.0              | 0.0                   | 0.0                   | 1.0              | 0.98               | 0.0                | 0.02             | 0.0                | 1.0                | 0.0             |
+|:-------|: 12 | 1   | 0.1 | 0.0                   | 0.99                  | 0.01             | 0.0                   | 0.0                   | 1.0              | 1.0                | 0.0                | 0.0              | 0.0                | 0.99               | 0.01            |
 
 
 
-
-| #CHROM   | POS                | Reference 2                  |
-|:----------------------|:---------------------------|:-----------------------------|
-| sample\_1             | sample\_2=sample\_2        | sample\_3=sample\_3          |
-| sample\_4             | GID\_1=sample\_5;sample\_6 | GID\_2=sample\_7             |
-| sample\_8             | GID\_1=sample\_9;sample\_10| GID\_2=sample\_11;sample\_12 |
+In the output, columns correspond to:
+- CHROM : chromosome ID
+- POS : genomic position, as indicated in the input `.vcf.gz` or `.bcf` file
+- IDX : index of the variant, from 0 to N - 1.
+- CM : centimorgan
+- additional columns: IBD probability based on the `.group` file.
 
 
 ---
