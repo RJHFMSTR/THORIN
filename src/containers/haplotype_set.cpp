@@ -248,8 +248,12 @@ void haplotype_set::computeIbdProbabilities(variant_map & V){
 				last_cm_pos = cm_pos; last_bp_pos = bp_pos; 
 				// store segment
 				// you can put a condition with the segment size if you want to filter small segments
-				for(int sub_l = last_l; sub_l<l; sub_l++) parentalPhase[t][sub_l] = ibd_status;
+				// previous line by theoule: for(int sub_l = last_l; sub_l<l; sub_l++) parentalPhase[t][sub_l] = ibd_status;
 
+				// new line with cM length filter
+				for(int sub_l = last_l; sub_l<l; sub_l++){ if(length>=3) {parentalPhase[t][sub_l] = ibd_status;}};
+				// end of new line
+			
 				PD_G1_sum = 0.0; PD_G2_sum=0.0;
 				last_l = l;
 			}
