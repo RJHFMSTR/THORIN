@@ -377,7 +377,7 @@ void haplotype_set::writeParentPhasedBcf(string ofile, variant_map & V) {
 	//--- Open output file ---//
     htsFile * out_fp = hts_open(ofile.c_str(),file_format.c_str());
 	if ( out_fp == NULL ) vrb.error("Can't write in [" + ofile + "]");
-	vrb.bullet("Writing parentally phased haplotypes (left = G1, right = G2) in [" + ofile + "]");
+	vrb.bullet("Writing IBD-based haplotype scaffold (H0 = G1, H1 = G2) in [" + ofile + "]");
 
 	//--- Prepare and write header ---//
     bcf_hdr_t *out_hdr = bcf_hdr_init("w");
@@ -411,7 +411,7 @@ void haplotype_set::writeParentPhasedBcf(string ofile, variant_map & V) {
 			else{ vrb.error("Parental phasinig unknown"); }
 		}
 		bcf_update_genotypes(out_hdr, out_rec, genotypes_out, sourceIDXs.size()*2);
-		if(bcf_write(out_fp, out_hdr, out_rec)< 0) vrb.error("Failing to write VCF/record");
+		if(bcf_write(out_fp, out_hdr, out_rec)< 0) vrb.error("Failed to write VCF/record");
 	}
 
 	//close all the stuffs
