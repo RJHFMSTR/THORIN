@@ -41,7 +41,6 @@ parent: Documentation
 | \-O \[\-\-output \]  | STRING  | NA       | Sum of HMM IBD probabilities per group TXT/VCF/BCF format |
 | \-\-ibd     | STRING  | NA       | IBD segments per group  |
 | \-\-phasing  | STRING  | NA       | IBD-based scaffold in VCF/BCF format |
-
 | \-\-log              | STRING  | NA       | Log file  |
 
 
