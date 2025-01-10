@@ -31,7 +31,7 @@ for CHR in {1..22}; do
 done
 
 for CHR in X; do
-	IN=../step0_download_genotype/data/genotype/vcf/KGP.chr${CHR}.gsa.diploidize.bcf
+	IN=../step0_download_genotype/data/genotype/vcf/KGP.chr${CHR}.gsa.diploidized.bcf
 	OUT=data/relatedness/unrelated/KGP.chr${CHR}.gsa.unrelated.bcf
 	bcftools view -S ${UNR} -Ob -o ${OUT} ${IN} --threads ${threads}
 	bcftools index ${OUT} --threads ${threads}
