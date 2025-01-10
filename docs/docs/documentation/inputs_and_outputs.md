@@ -75,7 +75,10 @@ bcftools view -S ${SAMP} -Ob -o ${OUT} ${IN} && bcftools index ${OUT}
 ### Outputs
 The THORIN tool allow for different types of outputs.
 
-#### IBD per variant site
+---
+
+
+#### 1. IBD per variant site
 This is the basic output of the THORIN tool, also present in v1.0.0. It reports the probability of sharing IBD per variant site on each of the focal individual haplotypes with (i) each of the reference individuals or group listed in the `.group` file, and (ii) the set of unrelated individuals. 
 
 An example of output file is presented below:
@@ -103,15 +106,17 @@ The header of additional columns are formatted in such way that the first elemen
 The IBD probabilities for each of the focal individual haplotypes must sum to 1, so that a high IBD probability with `HOLE` (i.e, unrelated individuals) means that there is no IBD sharing with any of the specified reference individual.
 
 
+---
 
-
-#### IBD per variant site, variant call format
+#### 2. IBD per variant site, variant call format
 In version 1.2.0, we provide an option that directly reformat the output file in a `.vcf.gz` or `.bcf` format. This output can also be indexed and manupulated using standard tools such as bcftools. We find this format more suitable to directly extract a specific focal individual - reference individual pair, or a given genomic region. 
 
 This is implemented simply by adding `.vcf.gz` or `.bcf` to the output file name.
 
 
-#### IBD segments
+---
+
+#### 3. IBD segments
 In version 1.2.0, we provide an option to aggegate the IBD probabilities of consecutive variant into IBD segments. This is achieved using the option `--ibd`. This typically works well when the focal individual has one or two groups of reference individuals, let's say `GID1` and `GID2`, but has not been tested for more. This corresponds to the setting of two surrogate parents groups, the maternal one and the paternal one, as typically used for inferring the parental origin of haplotypes.
 
 The output file as the following format:
@@ -129,8 +134,10 @@ The `Prob` column contain the class of IBD segment identified:
 - D : both haplotype are in IBD with the same reference individual group.
 
 
+---
 
-#### IBD scaffold
+
+#### 4. IBD scaffold
 In version 1.2.0, we provide an option that uses the IBD segment to directly output a scaffold file for intra- and inter-chromosomal phasing. Considering the four different classes of `Prob` describe in the previous section, the scaffolding step works on the fact that haplotype segment can be re-ordered according to their class. For example, let's consider a focal individual having two haplotype segment of class `A` and one haplotype segment of class `B` within the same chromosome. The segment of class `B` can be re-order in the scaffold file by reverting the phase of the variant whithin that segment, so that variant are now on the same phase as segments of class `A`. The same principle applies to inter-chromosomal phasing, where basically all haplotype segments across all chromosomes are re-order in class `A` in the scaffold file.
 
 This is provided by the option `--phasing`.
