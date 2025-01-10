@@ -83,8 +83,8 @@ An example of output file is presented below:
 
 | #CHROM | POS | IDX | CM  | sample\_1_sample\_2_0 | sample\_1_sample\_3_0 | sample\_1_HOLE_0 | sample\_1_sample\_2_1 | sample\_1_sample\_3_1 | sample\_1_HOLE_1 | sample\_4_GID\_1_0 | sample\_4_GID\_2_0 | sample\_4_HOLE_0 | sample\_4_GID\_1_1 | sample\_4_GID\_2_1 | sample\_4_HOLE_1|
 |:-------|:----|:----|:----|:----------------------|:----------------------|:-----------------|:----------------------|:----------------------|:-----------------|:-------------------|:-------------------|:-----------------|:-------------------|:-------------------|:----------------|
-|:-------|: 1  | 0   | 0.0 | 0.0                   | 1.0                   | 0.0              | 0.0                   | 0.0                   | 1.0              | 0.98               | 0.0                | 0.02             | 0.0                | 1.0                | 0.0             |
-|:-------|: 12 | 1   | 0.1 | 0.0                   | 0.99                  | 0.01             | 0.0                   | 0.0                   | 1.0              | 1.0                | 0.0                | 0.0              | 0.0                | 0.99               | 0.01            |
+| chr20  | 1   | 0   | 0.0 | 0.0                   | 1.0                   | 0.0              | 0.0                   | 0.0                   | 1.0              | 0.98               | 0.0                | 0.02             | 0.0                | 1.0                | 0.0             |
+| chr20  | 12  | 1   | 0.1 | 0.0                   | 0.99                  | 0.01             | 0.0                   | 0.0                   | 1.0              | 1.0                | 0.0                | 0.0              | 0.0                | 0.99               | 0.01            |
 
 
 
@@ -94,6 +94,8 @@ In the output, columns correspond to:
 - IDX : index of the variant, from 0 to N - 1.
 - CM : centimorgan
 - additional columns: IBD probability based on the `.group` file.
+
+The header of additional columns are formatted in such way that the first element is the focal individual ID, the second element is the `GID` (as specified in the `.group` file, or `HOLE` for unrelated individuals), and the third element is the haploype number.
 
 
 ---
