@@ -81,8 +81,9 @@ This is the basic output of the THORIN tool, also present in v1.0.0. It reports 
 An example of output file is presented below:
 
 
-| #CHROM | POS | IDX | CM | sample\_1_sample\_2_0 | sample\_1_sample\_3_0 | sample\_1_HOLE_0 | sample\_1_sample\_2_1 | sample\_1_sample\_3_1 | sample\_1_HOLE_1 | sample\_4_GID\_1_0 | sample\_4_GID\_2_0 | sample\_4_HOLE_0 | sample\_4_GID\_1_1 | sample\_4_GID\_2_1 | sample\_4_HOLE_1
-|:-------|:
+| #CHROM | POS | IDX | CM  | sample\_1_sample\_2_0 | sample\_1_sample\_3_0 | sample\_1_HOLE_0 | sample\_1_sample\_2_1 | sample\_1_sample\_3_1 | sample\_1_HOLE_1 | sample\_4_GID\_1_0 | sample\_4_GID\_2_0 | sample\_4_HOLE_0 | sample\_4_GID\_1_1 | sample\_4_GID\_2_1 | sample\_4_HOLE_1|
+|:-------|:----|:----|:----|:----------------------|:----------------------|:-----------------|:----------------------|:----------------------|:-----------------|:-------------------|:-------------------|:-----------------|:-------------------|:-------------------|:---------------|
+|:-------|: 1  | 0   | 0.0 | 0.0                   | 1.0                   | 0                | 
 
 
 | #CHROM   | POS                | Reference 2                  |
