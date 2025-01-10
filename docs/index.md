@@ -35,8 +35,8 @@ THORIN is a tool for mapping Identify-By-Descent (IBD) and inferring the Parent-
 
 {: .new }
 > **Version `1.2.0` is now available!**
-> See [the CHANGELOG](https://github.com/odelaneau/shapeit5/blob/main/docs/CHANGELOG.md) for details.
-
+<!--- > See [the CHANGELOG](https://github.com/odelaneau/shapeit5/blob/main/docs/CHANGELOG.md) for details.
+-->
 
 ## Citation
 
