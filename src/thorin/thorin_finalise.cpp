@@ -35,9 +35,9 @@ void thorin::write_files_and_finalise() {
 
 	if (options.count("ibd")) H.computeIbdProbabilities(options["ibd"].as <string> (), V);
 		// 2. output vcf
-	if (options.count("phasing")){
+	if (options.count("scaffold")){
 		if (!options.count("ibd")) H.computeIbdProbabilities(V);
-		H.writeParentPhasedBcf(options["phasing"].as <string> (), V);
+		H.writeParentPhasedBcf(options["scaffold"].as <string> (), V);
 	}
 
 	//step2: Measure overall running time

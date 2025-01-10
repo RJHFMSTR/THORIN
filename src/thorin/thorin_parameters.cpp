@@ -48,7 +48,7 @@ void thorin::declare_options() {
 	opt_output.add_options()
 			("output,O", bpo::value< string >(), "HMM sumation per group")
 			("ibd", bpo::value< string >(), "Output IBD segments")
-			("phasing", bpo::value< string >(), "Phase the targets according to the found IBD segments")
+			("scaffold", bpo::value< string >(), "Produces a IBD-based haplotype scaffold for inter-chromosomal phasing")
 			("log", bpo::value< string >(), "Log file");
 
 	descriptions.add(opt_base).add(opt_input).add(opt_group).add(opt_hmm).add(opt_output);
