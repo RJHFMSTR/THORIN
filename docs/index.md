@@ -7,9 +7,14 @@ permalink: /
 
 ---
 
-
+1
+![](docs/assets/images/logo_thorin.png?raw=true)
+2
+![](/docs/assets/images/logo_thorin.png?raw=true)
+3
 ![](/assets/images/logo_thorin.png?raw=true)
-
+4
+![](assets/images/logo_thorin.png?raw=true)
 
 
 <!---
