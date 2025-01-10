@@ -2,12 +2,17 @@
 layout: default
 title: Home
 nav_order: 1
-description: "THORIN is a tool for mapping Identify-By-Descent (IBD) and inferring the Parent-of-Origin of alleles."
+description: "THORIN is a tool for mapping Identity-By-Descent (IBD) and inferring the Parent-of-Origin of alleles."
 permalink: /
 
 ---
 
 ![alt text](https://github.com/RJHFMSTR/THORIN/blob/main/docs/assets/images/Presentation1/Slide1.png?raw=true)
+![](docs/assets/images/logo_thorin.png?raw=true)
+![](/docs/assets/images/logo_thorin.png?raw=true)
+![](/assets/images/logo_thorin.png?raw=true)
+![](assets/images/logo_thorin.png?raw=true)
+
 ![alt text](https://github.com/RJHFMSTR/THORIN/blob/main/docs/assets/images/logo_thorin.png?raw=true)
 <img src="https://github.com/RJHFMSTR/THORIN/blob/main/docs/assets/images/Presentation1/Slide1.png?raw=true" width="48">
 <pre> </pre>
