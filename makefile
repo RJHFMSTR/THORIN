@@ -144,6 +144,16 @@ theoule: BOOST_LIB_IO=/usr/lib/x86_64-linux-gnu/libboost_iostreams.a
 theoule: BOOST_LIB_PO=/usr/lib/x86_64-linux-gnu/libboost_program_options.a
 theoule: $(BFILE)
 
+debug: CXXFLAG=-O0 -g
+debug: LDFLAG=-O0
+debug: HTSSRC=$(HOME)/commands
+debug: HTSLIB_INC=$(HTSSRC)/htslib-1.18
+debug: HTSLIB_LIB=$(HTSSRC)/htslib-1.18/libhts.a
+debug: BOOST_INC=/usr/include
+debug: BOOST_LIB_IO=/usr/lib/x86_64-linux-gnu/libboost_iostreams.a
+debug: BOOST_LIB_PO=/usr/lib/x86_64-linux-gnu/libboost_program_options.a
+debug: $(BFILE)
+
 static_exe: HTSSRC=/home/srubinac/git
 static_exe: HTSLIB_INC=$(HTSSRC)/htslib_minimal
 static_exe: HTSLIB_LIB=$(HTSSRC)/htslib_minimal/libhts.a
