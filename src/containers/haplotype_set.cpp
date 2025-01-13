@@ -181,7 +181,7 @@ void haplotype_set::computeIbdProbabilities(variant_map & V){
 	vrb.bullet("Finding IBD segments");
 	//--- Prepare parentalPhase ---//
 	parentalPhase = vector < vector < int >> (sourceIDXs.size());
-	for(int i = 0; i<sourceIDXs.size(); i++) parentalPhase[i] = vector<int> (n_site);
+	for(int i = 0; i<sourceIDXs.size(); i++) parentalPhase[i] = vector<int> (n_site, 2);
 
 	//--- Prepare output ---///
 	//Write file header
@@ -248,16 +248,10 @@ void haplotype_set::computeIbdProbabilities(variant_map & V){
 				last_cm_pos = cm_pos; last_bp_pos = bp_pos; 
 				// store segment
 				// you can put a condition with the segment size if you want to filter small segments
-				// previous line by theoule: for(int sub_l = last_l; sub_l<l; sub_l++) parentalPhase[t][sub_l] = ibd_status;
-
-				// new line with cM length filter
-                                for (int sub_l = last_l; sub_l < n_site; sub_l++) {
-                                        float length = V.vec_pos[sub_l]->cm - last_cm_pos;
-					if (length < 3) {
-                                                parentalPhase[t][sub_l] = 2;
-                                        }
-                                }
-				// end of new line
+				// if segment is superior to 3 cM (or the argument), we will define ibd_status
+				if(length > 3){
+					for(int sub_l = last_l; sub_l<l; sub_l++) parentalPhase[t][sub_l] = ibd_status;
+				}
 			
 				PD_G1_sum = 0.0; PD_G2_sum=0.0;
 				last_l = l;
@@ -273,26 +267,17 @@ void haplotype_set::computeIbdProbabilities(variant_map & V){
 		if (ibd_status == 3) UPD = (PD_G1_sum > PD_G2_sum) ? "G1" : "G2";
 		// for(int sub_l = last_l; sub_l<n_site; sub_l++) parentalPhase[t][sub_l] = ibd_status;
 
-                // new line with cM length filter
-                for (int sub_l = last_l; sub_l < n_site; sub_l++) {
-                        float length = V.vec_pos[V.vec_pos.length() -1 ]->cm - last_cm_pos;
-			if (length >= 3) {
-                                parentalPhase[t][sub_l] = ibd_status;
-                        }
-                }		
-		// end of new line
-
 	}
 
 
 }
 
 //1. compute probabilities A, B and ...
-void haplotype_set::computeIbdProbabilities(string ofile, variant_map & V){
+void haplotype_set::computeIbdProbabilities(string ofile, variant_map & V, float scaffold_cM){
 	vrb.bullet("Finding IBD segments and writing in [" + ofile + "]");
 	//--- Prepare parentalPhase ---//
 	parentalPhase = vector < vector < int >> (sourceIDXs.size());
-	for(int i = 0; i<sourceIDXs.size(); i++) parentalPhase[i] = vector<int> (n_site);
+	for(int i = 0; i<sourceIDXs.size(); i++) parentalPhase[i] = vector<int> (n_site, 2);
 
 	//--- Prepare output ---///
 	//Write file header
@@ -304,6 +289,7 @@ void haplotype_set::computeIbdProbabilities(string ofile, variant_map & V){
 	// for each individuals
 	std::string chr = V.vec_pos[0]->chr;
 	char P_letter[] = {'A','B','C','D'};
+	int last_l = 0;
 	for (int t = 0 ; t < sourceIDXs.size() ; t ++) {
 		// for each site
 		int ibd_status=-1; // 0 = A, 1= B , 2=C, 3=D
@@ -312,7 +298,7 @@ void haplotype_set::computeIbdProbabilities(string ofile, variant_map & V){
 		int last_bp_pos = V.vec_pos[0]->bp;
 		int bp_pos_before = last_bp_pos;
 		float PD_G1_sum = 0.0, PD_G2_sum = 0.0;
-		int last_l = 0;
+		last_l = 0;
 		for (int l = 0 ; l  < n_site ; l ++) {
 			double cm_pos = V.vec_pos[l]->cm;
 			int bp_pos = V.vec_pos[l]->bp;
@@ -364,18 +350,7 @@ void haplotype_set::computeIbdProbabilities(string ofile, variant_map & V){
 				last_cm_pos = cm_pos; last_bp_pos = bp_pos; 
 				// store segment
 				// you can put a condition with the segment size if you want to filter small segments
-				//for(int sub_l = last_l; sub_l<l; sub_l++) parentalPhase[t][sub_l] = ibd_status;
-
-
-                                // new line with cM length filter
-                		for (int sub_l = last_l; sub_l < n_site; sub_l++) {
-				    	float length = V.vec_pos[sub_l]->cm - last_cm_pos;
-                        		if (length >= 3) {
-                                		parentalPhase[t][sub_l] = ibd_status;
-                        		}
-                		}                                
-				// end of new line
-
+				if(length >= scaffold_cM) for(int sub_l = last_l; sub_l<l; sub_l++) parentalPhase[t][sub_l] = ibd_status;
 
 				PD_G1_sum = 0.0; PD_G2_sum=0.0;
 				last_l = l;
@@ -392,16 +367,8 @@ void haplotype_set::computeIbdProbabilities(string ofile, variant_map & V){
 		fd << chr << "\t" << last_bp_pos << "\t" << V.vec_pos[V.size()-1]->bp << "\t" << P_letter[ibd_status] << "\t" << V.vec_pos[V.size()-1]->cm - last_cm_pos << "\t" << IDs[targetIDXs[t]] << "\t" << UPD;
 		fd << endl;
 
-
-//		for(int sub_l = last_l; sub_l<n_site; sub_l++) parentalPhase[t][sub_l] = ibd_status;
-                // new line with cM length filter
-		for (int sub_l = last_l; sub_l < n_site; sub_l++) {
-			float length = V.vec_pos[sub_l]->cm - last_cm_pos;
-			if (length >= 3) {
-				parentalPhase[t][sub_l] = ibd_status;
-			}
-		}
-		// end of new line
+		float length = V.vec_pos[V.size()-1]->cm - last_cm_pos;
+		if(length >= scaffold_cM) for (int sub_l = last_l; sub_l<n_site; sub_l++) parentalPhase[t][sub_l] = ibd_status;
 	}
 	fd.close();
 

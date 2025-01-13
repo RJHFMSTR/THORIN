@@ -33,7 +33,7 @@ void thorin::write_files_and_finalise() {
 	
 	else H.writeCopyingProbabilities(options["output"].as < string > (), V);
 
-	if (options.count("ibd")) H.computeIbdProbabilities(options["ibd"].as <string> (), V);
+	if (options.count("ibd")) H.computeIbdProbabilities(options["ibd"].as <string> (), V, options["scaffold-cM"].as <float>());
 		// 2. output vcf
 	if (options.count("scaffold")){
 		if (!options.count("ibd")) H.computeIbdProbabilities(V);
