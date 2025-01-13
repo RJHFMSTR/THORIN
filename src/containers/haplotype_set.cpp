@@ -178,6 +178,7 @@ void haplotype_set::writeCopyingProbabilitiesBCF(string ofile, variant_map & V) 
 }
 
 void haplotype_set::computeIbdProbabilities(variant_map & V){
+	/*
 	vrb.bullet("Finding IBD segments");
 	//--- Prepare parentalPhase ---//
 	parentalPhase = vector < vector < int >> (sourceIDXs.size());
@@ -268,6 +269,7 @@ void haplotype_set::computeIbdProbabilities(variant_map & V){
 		// for(int sub_l = last_l; sub_l<n_site; sub_l++) parentalPhase[t][sub_l] = ibd_status;
 
 	}
+	*/
 
 
 }
@@ -299,51 +301,66 @@ void haplotype_set::computeIbdProbabilities(string ofile, variant_map & V, float
 		int bp_pos_before = last_bp_pos;
 		float PD_G1_sum = 0.0, PD_G2_sum = 0.0;
 		last_l = 0;
+		if(ngroups!= 3 and ngroups!=2) vrb.error("Copying probabilities contains:" + to_string(ngroups) + "columns instead of 2 or 3. Please verify your -T file");
 		for (int l = 0 ; l  < n_site ; l ++) {
 			double cm_pos = V.vec_pos[l]->cm;
 			int bp_pos = V.vec_pos[l]->bp;
 
 			//--- Compute probabilities ---//
 			// BE CAREFUL OF CASE WHERE YOU HAVE NA //
-			float H0G1 = copyingProbabilities[2*t+0][ngroups*l+0]; 
-			float H0G2 = copyingProbabilities[2*t+0][ngroups*l+1]; 
-			float H0U = copyingProbabilities[2*t+0][ngroups*l+2]; 
-			float H1G1 = copyingProbabilities[2*t+1][ngroups*l+0]; 
-			float H1G2 = copyingProbabilities[2*t+1][ngroups*l+1]; 
-			float H1U = copyingProbabilities[2*t+1][ngroups*l+2]; 
+			float PA, PB, PC, PD, P_sum;
 
-			float PA =  H0G1 * H1G2 + H0G1 * H1U + H1G2 * H0U; // IBD and phasing good
-			float PB =  H0G2 * H1G1 + H0G2 * H1U + H1G1 * H0U; // IBD and phasing error
-			float PC = H0U * H1U; // no ibd in region
-			float PD = H0G1*H1G1 + H0G2*H1G2; // disomy
-			float P_sum = PA + PB + PC + PD;
+			if(ngroups == 3){
+				float H0G1 = copyingProbabilities[2*t+0][ngroups*l+0]; 
+				float H0G2 = copyingProbabilities[2*t+0][ngroups*l+1]; 
+				float H0U = copyingProbabilities[2*t+0][ngroups*l+2]; 
+				float H1G1 = copyingProbabilities[2*t+1][ngroups*l+0]; 
+				float H1G2 = copyingProbabilities[2*t+1][ngroups*l+1]; 
+				float H1U = copyingProbabilities[2*t+1][ngroups*l+2]; 
+
+				PA =  H0G1 * H1G2 + H0G1 * H1U + H1G2 * H0U; // IBD and phasing good
+				PB =  H0G2 * H1G1 + H0G2 * H1U + H1G1 * H0U; // IBD and phasing error
+				PC = H0U * H1U; // no ibd in region
+				PD = H0G1*H1G1 + H0G2*H1G2; // disomy
+				// get PD sum in case we want UPD
+				PD_G1_sum+=H0G1*H1G1; PD_G2_sum+=H0G2*H1G2;
+			}
+			else{
+				float H0G = copyingProbabilities[2*t+0][ngroups*l+0]; 
+				float H0U = copyingProbabilities[2*t+0][ngroups*l+1]; 
+				float H1G = copyingProbabilities[2*t+1][ngroups*l+0]; 
+				float H1U = copyingProbabilities[2*t+1][ngroups*l+1]; 
+
+				if(groupIDs[t][0] == "G1") {PA = H0G * H1U; PB = H1G * H0U;}
+				else if(groupIDs[t][0] == "G2") {PA = H1G * H0U; PB = H0G * H1U;}
+				else {vrb.error("Wrong group name: " + groupIDs[t][0]+ ". Should either be G1 or G2");}
+				PC = H0U * H1U;
+				PD = H0G * H1G;
+			}
 
 			// normalize
+			P_sum = PA + PB + PC + PD;
 			PA = PA/P_sum;
 			PB = PB/P_sum;
 			PC = PC/P_sum;
 			PD = PD/P_sum;
 			float Probs[] = {PA, PB, PC, PD};
 
-			// get PD sum in case we want UPD
-			PD_G1_sum+=H0G1*H1G1;
-			PD_G2_sum+=H0G2*H1G2;
-
-			//std::cout << l << " " << bp_pos << " " << cm_pos << " " << H0G1 << " " << H0G2 << " " << H0U << " " << H1G1 << " " << H1G2 << " " << H1U << std::endl;
-
 			//--- Check if we are in a new site (IBD status) --//
 			// find index of maximum value 
 			int curr_ibd_status = 0;
 			float max_val = -1;
 			for(int i = 0; i<4; i++){ if(max_val < Probs[i]) {max_val=Probs[i]; curr_ibd_status=i;}};
-			//std::cout << max_val << " " << PA << " " << PB << " " << PC << " " << PD << " " << curr_ibd_status << " " << ibd_status << " " << last_bp_pos << " " << bp_pos << " " << ibd_status << " " << cm_pos - last_cm_pos << std::endl;
 
 			// if IBD status change, how long was the segments?
 			if (curr_ibd_status!=ibd_status && ibd_status >= 0){
 				float length = cm_pos - last_cm_pos;
 				// find UPD field
 				std::string UPD = "U";
-				if (ibd_status == 3) UPD = (PD_G1_sum > PD_G2_sum) ? "G1" : "G2";
+				if (ibd_status == 3){
+					if (ngroups == 3) UPD = (PD_G1_sum > PD_G2_sum) ? "G1" : "G2";
+					else UPD = "G";
+				}
 				// output
 				fd << chr << "\t" << last_bp_pos << "\t" << bp_pos_before << "\t" << P_letter[ibd_status] << "\t" << length << "\t" << IDs[targetIDXs[t]] << "\t" << UPD;
 				fd << endl;
