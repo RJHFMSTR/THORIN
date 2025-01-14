@@ -8,7 +8,7 @@ permalink: /
 ---
 
 ![](assets/images/logo_thorin.png?raw=true)
-
+![](assets/images/Presentation1/Slide1.png?raw=true)
 
 <!---
 # THORIN
