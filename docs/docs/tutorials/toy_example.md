@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Toy example
-nav_order: 2
+nav_order: 1
 parent: Tutorials
 ---
 # Toy example

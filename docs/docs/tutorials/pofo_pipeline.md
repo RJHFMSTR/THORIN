@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Parent-of-origin inference pipeline tutorial
-nav_order: 1
+nav_order: 2
 parent: Tutorials
 ---
 # Parent-of-origin inference pipeline tutorial
