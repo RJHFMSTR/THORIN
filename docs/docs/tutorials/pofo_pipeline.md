@@ -4,7 +4,7 @@ title: Parent-of-origin inference pipeline tutorial
 nav_order: 1
 parent: Tutorials
 ---
-# Simulated WGS data
+# Parent-of-origin inference pipeline tutorial
 {: .no_toc }
 
 ## Table of contents
