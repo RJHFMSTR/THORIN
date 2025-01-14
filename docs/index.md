@@ -8,6 +8,7 @@ permalink: /
 ---
 
 ![](assets/images/Presentation1/Slide1.png?raw=true)
+![](assets/images/logo_name.png?raw=true)
 
 <!---
 # THORIN
