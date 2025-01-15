@@ -69,6 +69,8 @@ OUT=${ODIR}/KGP.chr${CHR}.benchmark.thorin.prob
 You can then simply plot IBD sharing with paternal and maternal relatives to have a first overview of the IBD sharing differences between relative groups. The code provided in `pipeline/step1.2_parental_side_determination/step0_chrX_ibd/plot_chrX_IBD_validation_cohort.R` should give you the following plots:
 
 
+![](https://github.com/RJHFMSTR/THORIN/blob/main/pipeline/step1.2_parental_side_determination/step0_chrX_ibd/chrX_IBD_validation_cohort.png?raw=true)
+
 ---
 
 
@@ -79,7 +81,11 @@ For this, we will use the two scripts `pipeline/step1.2_parental_side_determinat
 
 In the first script, `pipeline/step1.2_parental_side_determination/step0_chrX_ibd/step1_map_IBD_all.sh`, we use THORIN to map IBD on chromosome X for the entire cohort with groups of surrogate parents.
 
-In the second script, `pipeline/step1.2_parental_side_determination/step0_chrX_ibd/step2_assign_parental_side_and_plot.R`, we use the validation cohort to derive a probability of a reltive being on the paternal or maternal side given it's chromosome X IBD sharing with the focal individual.
+In the second script, `pipeline/step1.2_parental_side_determination/step0_chrX_ibd/step2_assign_parental_side_and_plot.R`, we use the validation cohort to derive a probability of a relative being on the paternal or maternal side given it's chromosome X IBD sharing with the focal individual. We compute the accuracy of this process and we probabilistically assign each relative group to a parental side.
+
+After running those two script on the KGP example data, you should have the following figure:
+
+
 
 
 
