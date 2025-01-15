@@ -69,7 +69,7 @@ You can then simply plot IBD sharing with paternal and maternal relatives to hav
 ![](assets/images/chrX_IBD_validation_cohort.png?raw=true)
 1
 ---
-![](chrX_IBD_validation_cohort.png?raw=true)
+![](https://github.com/RJHFMSTR/THORIN/blob/main/docs/assets/images/chrX_IBD_validation_cohort.png?raw=true)
 
 
 
