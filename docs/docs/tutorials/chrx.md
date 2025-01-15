@@ -88,7 +88,7 @@ After running those two script on the KGP example data, you should have the foll
 
 
 
-![](https://github.com/RJHFMSTR/THORIN/blob/main/pipeline/step1.2_parental_side_determination/step0_chrX_ibd/chrx_accuracy_derived_prediction)
+![](https://github.com/RJHFMSTR/THORIN/blob/main/pipeline/step1.2_parental_side_determination/step0_chrX_ibd/chrx_accuracy_derived_prediction?raw=true)
 
 
 
