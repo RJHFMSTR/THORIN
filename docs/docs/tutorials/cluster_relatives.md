@@ -4,7 +4,7 @@ title: 2. Cluster relatives
 nav_order: 2
 parent: Parent-of-origin inference pipeline tutorial
 ---
-# Relatedness inference and clustring of close relatives
+# Relatedness inference and clustering of close relatives
 {: .no_toc }
 
 ## Table of contents

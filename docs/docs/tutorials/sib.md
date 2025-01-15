@@ -2,7 +2,7 @@
 layout: default
 title: 3. Cross-over inference
 nav_order: 3
-parent: Parental side inference
+parent: 3. Parental side inference
 has_children: true
 
 ---

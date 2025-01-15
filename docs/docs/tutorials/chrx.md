@@ -2,7 +2,7 @@
 layout: default
 title: 1. Chromosome X
 nav_order: 1
-parent: Parental side inference
+parent: 3. Parental side inference
 has_children: true
 
 ---
