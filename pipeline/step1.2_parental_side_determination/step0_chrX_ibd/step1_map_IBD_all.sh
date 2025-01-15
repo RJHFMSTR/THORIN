@@ -2,12 +2,12 @@
 
 CHR=X
 
-IN=../step0_download_genotype/data/genotype/vcf/KGP.chr${CHR}.gsa.diploidized.bcf
-UNR=../step1_surrogate_parents/data/relatedness/unrelated/KGP.chr${CHR}.gsa.unrelated.bcf
-MAP=../../maps/chrX.b38.gmap.gz
-GRP=../step1_surrogate_parents/data/Relatives.male_targets.group
+IN=../../step0_download_genotype/data/genotype/vcf/KGP.chr${CHR}.gsa.diploidized.bcf
+UNR=../../step1_surrogate_parents/data/relatedness/unrelated/KGP.chr${CHR}.gsa.unrelated.bcf
+MAP=../../../maps/chrX.b38.gmap.gz
+GRP=../../step1_surrogate_parents/data/Relatives.male_targets.group
 
-BIN=../../bin/thorin_v1.2_static
+BIN=../../../bin/thorin_v1.2_static
 
 
 ODIR=data/THORIN/call

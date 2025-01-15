@@ -32,9 +32,8 @@ All scripts are available in folder `pipeline/step1.2_parental_side_determinatio
 
 ---
 
-### Pipeline
 
-#### IBD mapping on chromosome X
+## IBD mapping on chromosome X
 
 
 ---
