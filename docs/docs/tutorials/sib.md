@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Cross-over inference
+title: 3. Cross-over inference
 nav_order: 3
 parent: Parental side inference
 has_children: true

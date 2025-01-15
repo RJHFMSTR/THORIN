@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Chromosome X
+title: 1. Chromosome X
 nav_order: 1
 parent: Parental side inference
 has_children: true

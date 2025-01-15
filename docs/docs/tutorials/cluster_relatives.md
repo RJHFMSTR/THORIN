@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Cluster relatives
+title: 2. Cluster relatives
 nav_order: 2
 parent: Parent-of-origin inference pipeline tutorial
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Mitochondrial DNA
+title: 2. Mitochondrial DNA
 nav_order: 2
 parent: Parental side inference
 has_children: true

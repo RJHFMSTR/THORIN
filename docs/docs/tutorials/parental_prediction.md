@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Parent-or-origin determination genome-wide
+title: 5. Parent-or-origin determination genome-wide
 nav_order: 5
 parent: Parent-of-origin inference pipeline tutorial
 has_children: true

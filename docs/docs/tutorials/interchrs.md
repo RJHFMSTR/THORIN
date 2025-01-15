@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Inter-chromosomal phasing
-nav_order: 3
+title: 4. Inter-chromosomal phasing
+nav_order: 4
 parent: Parent-of-origin inference pipeline tutorial
 has_children: true
 

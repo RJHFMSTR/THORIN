@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Parental side inference
+title: 3. Parental side inference
 nav_order: 3
 parent: Parent-of-origin inference pipeline tutorial
 has_children: true

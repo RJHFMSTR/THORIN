@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Example data
+title: 1. Example data
 nav_order: 1
 parent: Parent-of-origin inference pipeline tutorial
 ---
