@@ -36,6 +36,9 @@ All scripts are available in folder `pipeline/step1.2_parental_side_determinatio
 
 #### IBD mapping on chromosome X
 
+
+---
+
 **1. Validation cohort**
 
 We first use THORIN to map IBD on chromosome X for individuals in our validation cohort. A first look at the difference in IBD segment length between maternal and paternal relative indicates us whether this information can be use on the remaining individuals (i.e those not included in the validation cohort).
@@ -66,22 +69,17 @@ OUT=${ODIR}/KGP.chr${CHR}.benchmark.thorin.prob
 You can then simply plot IBD sharing with paternal and maternal relatives to have a first overview of the IBD sharing differences between relative groups. The code provided in `pipeline/step1.2_parental_side_determination/step0_chrX_ibd/plot_chrX_IBD_validation_cohort.R` should give you the following plots:
 
 
-![](assets/images/chrX_IBD_validation_cohort.png?raw=true)
-1
 ---
-![](https://github.com/RJHFMSTR/THORIN/blob/main/docs/assets/images/chrX_IBD_validation_cohort.png?raw=true)
 
 
+**2. Entire data**
+Now that we verified that paternal and maternal surrogate parent have significant differences in IBD sharing on chromosome X in our cohort, we can extend this approach to the entire cohort. 
 
+For this, we will use the two scripts `pipeline/step1.2_parental_side_determination/step0_chrX_ibd/step1_map_IBD_all.sh` and `pipeline/step1.2_parental_side_determination/step0_chrX_ibd/step2_assign_parental_side_and_plot.R`.
 
+In the first script, `pipeline/step1.2_parental_side_determination/step0_chrX_ibd/step1_map_IBD_all.sh`, we use THORIN to map IBD on chromosome X for the entire cohort with groups of surrogate parents.
 
-
-
-
-
-
-
-
+In the second script, `pipeline/step1.2_parental_side_determination/step0_chrX_ibd/step2_assign_parental_side_and_plot.R`, we use the validation cohort to derive a probability of a reltive being on the paternal or maternal side given it's chromosome X IBD sharing with the focal individual.
 
 
 
