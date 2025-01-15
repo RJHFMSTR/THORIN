@@ -1,7 +1,8 @@
 #!bin/bash
 
 
-BIN=diploidize_static # available from https://github.com/odelaneau/otools
+BIN=/home/rhofmeis/Dropbox/Ressources/Git_repository/otools/diploidize/bin/diploidize_static # available from https://github.com/odelaneau/otools
+
 SEX=data/1kGP.3202_samples.pedigree_info.txt
 VCF=data/genotype/vcf/KGP.chrX.gsa.vcf.gz
 threads=8
@@ -30,7 +31,7 @@ bcftools view -S ^data/KGP.males.txt -Ob -o ${OUT_F} ${IN} --threads ${threads}
 bcftools index ${OUT_F} --threads ${threads}
 
 OUT_D=data/genotype/vcf/KGP.chrX.gsa.males.diploidized.bcf
-./${BIN} --input ${OUT_M} --output ${OUT_D}
+${BIN} --input ${OUT_M} --output ${OUT_D}
 bcftools index ${OUT_D} --threads ${threads}
 
 OUT=data/genotype/vcf/KGP.chrX.gsa.diploidized.bcf

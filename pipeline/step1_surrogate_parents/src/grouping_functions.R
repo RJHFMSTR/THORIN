@@ -59,7 +59,7 @@ grouping_sibs<-function(s, d_sibs=data.frame()){
 
 
 
-grouping_rel<-function(t, out=data.frame()){
+grouping_rel<-function(t, out=data.frame(), full_relatives=d){
 
         print(t)
                 # 1.2 Grouping of second- and third-degree relatives
@@ -91,7 +91,7 @@ grouping_rel<-function(t, out=data.frame()){
 
                 d_pairs<-data.frame()
                 for (relat in relatives){
-                        relatives2<-unique(c(as.character(rel$ID2[rel$ID1==relat]),as.character(rel$ID1[rel$ID2==relat])))
+                        relatives2<-unique(c(as.character(full_relatives$ID2[full_relatives$ID1==relat]),as.character(full_relatives$ID1[full_relatives$ID2==relat])))
                         relatives2<-relatives2[relatives2 %in% relatives]; relatives2<-relatives2[relatives2!=t]
                         d_pairs<-rbind(d_pairs, data.frame(t1=rep(relat, length(relatives2)), t2=relatives2))
                         if (length(relatives2)==0){d_pairs<-rbind(d_pairs, data.frame(t1=relat, t2=relat)) }}

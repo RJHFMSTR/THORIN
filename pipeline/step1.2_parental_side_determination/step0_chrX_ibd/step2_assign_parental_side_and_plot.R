@@ -39,6 +39,8 @@ find_outliers<-function(data, value){
 rel<-read.table('../step1_surrogate_parents/data/benchmark/Relatives.benchmark.side', hea=T)
 rel<-rel[rel$target_sex=='Male',]
 rel<-rel[,c(1,3,4)]; rel<-rel[!duplicated(rel),]
+
+# modif -- note: This part add also individual with no IBD sharing. If running on your own dataset with sufficient sample size, remove this step. Here, on the KGP dataset, we don't have enough individuals with IBD sharing with relatives.
 rel2<-data.frame()
 for (t in unique(rel$target)){
   tmp<-rel[i,]
@@ -59,6 +61,10 @@ for (t in unique(rel$target)){
   }
 }
 rel<-rbind(rel, rel2)
+## end of modif.
+
+
+
 
 
 # Assign parental side to IBD tracks
