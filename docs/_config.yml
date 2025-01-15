@@ -39,4 +39,11 @@ last_edit_time_format: "%b %e %Y at %I:%M %p" # uses ruby's time format: https:/
 
 footer_content: "Copyright &copy; 2022-2025 Robin Hofmeister, Theo Cavinato and Olivier Delaneau | All Rights Reserved | THORIN executables and source code are distributed under the <a href=\"https://github.com/RJHFMSTR/THORIN/blob/main/LICENSE\">MIT license.</a>"
 
+plugins:
+  - jekyll-github-metadata
+
+github:
+  repository: RJHFMSTR/THORIN
+
+
 
