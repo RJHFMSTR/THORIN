@@ -94,13 +94,15 @@ THORIN is an open source project and we very much welcome new contributors. When
 email, or any other method with the owners of this repository before making a change.
 #### Thank you to the contributors of THORIN!
 
-<ul class="list-style-none">
-{% for contributor in site.github.contributors %}
-  <li class="d-inline-block mr-1">
-     <a href="{{ contributor.html_url }}"><img src="{{ contributor.avatar_url }}" width="32" height="32" alt="{{ contributor.login }}"/></a>
-  </li>
-{% endfor %}
-</ul>
+{% if site.github.contributors %}
+  {% for contributor in site.github.contributors %}
+    <a href="{{ contributor.html_url }}">
+      <img src="{{ contributor.avatar_url }}" width="32" height="32" alt="{{ contributor.login }}" />
+    </a>
+  {% endfor %}
+{% else %}
+  <p>No contributors found.</p>
+{% endif %}
 
 
 ---
