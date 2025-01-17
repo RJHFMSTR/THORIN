@@ -1,4 +1,8 @@
 
+
+system('mkdir -p Plots/')
+
+
 # Read the file with relatives and assigned parental side
 rel<-read.table('../../step1_surrogate_parents/data/benchmark/Relatives.benchmark.side', hea=T)
 rel<-rel[rel$target_sex=='Male',]
@@ -35,7 +39,7 @@ dt<-dt[!is.na(dt$side),]
 
 
 # Plot IBD sharing per relative parental side
-png('chrX_IBD_validation_cohort.png')
+png('Plots/chrX_IBD_validation_cohort.png')
 par(mfrow=c(1,2))
 boxplot(dt$length_CM~dt$side, xlab='relative parental side', ylab='IBD segment length')
 boxplot(dt$length_CM~dt$side, xlab='relative parental side', ylab='IBD segment length', ylim=c(0,10))

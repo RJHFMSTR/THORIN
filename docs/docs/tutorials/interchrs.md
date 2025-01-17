@@ -20,7 +20,7 @@ has_children: true
 
 
 ## Rationale
-We previusly used kinship estimates, age and sex to identify parent-offspring trios, duos and siblings. For individuals with more distant relatives, we utilized a clustering approach to segregate relatives by parental sides, thereby classifying them into "one family side" versus "the other family side".
+We previously used kinship estimates, age and sex to identify parent-offspring trios, duos and siblings. For individuals with more distant relatives, we utilized a clustering approach to segregate relatives by parental sides, thereby classifying them into "one family side" versus "the other family side".
 
 Here, we will use identity-by-descent (IBD) information from surrogate parents to conduct inter-chromosomal phasing, effectively identifying sets of variants inherited together from the same parent across different chromosomes. By analyzing haplotype segments shared IBD with the same set of surrogate parents across the 22 autosomes for a given target individual, we can determine which haplotype segments are inherited from the same parent. This enables the construction of partial parental haplotype sets, which can then be used to perform inter-chromosomal phasing—segregating haplotypes inherited from each parent across the genome. This approach goes beyond traditional phasing methods, which are limited to resolving haplotypes within individual chromosomes (intra-chromosomal phasing).
 
@@ -63,12 +63,15 @@ fi
 When running this script, you will have one output file in VCF/BCF format for each of the autosome. This file is the IBD-based haplotype scaffold that we will use in the next step to perform inter-chromosomal phasing.
 
 
-If you want to have a look at your data and how the IBD mapping and scaffold construction work, we also provide an R script to plot your data (`pipeline/step2_interchromosomal_phasing/src/plot_ibd_tracks.R`). In the figure below, shown for the individual `HG00544` of the 1,000 Genome Project example data, the top and bottom plots shows the probability of sharing IBD between the focal individual and its surrogate parent group(s) or unrelated individuals (Unr) on haplotype 0 (top) or haplotype (1). The middle plot shows the boundaries of IBD segment identified, with their respective labels (A=H0 shared with G1 and/or H1 with G2;BA=H1 shared with G1 and/or H0 with G2; C= both H0 and H1 shared with Unr; D=both H0 and H1 shared with G1 or G2). For the scaffold construction, we used only labels A or B, with segment longer than 3cM. The size of the segment used is indicated below their respective labels. Unused IBD segment have no size indicated.
+If you want to have a look at your data and how the IBD mapping and scaffold construction work, we also provide an R script to plot your data (`pipeline/step2_interchromosomal_phasing/src/plot_ibd_tracks.R`).
+
+In the figure below, shown for the individual `HG00544` of the 1,000 Genome Project example data, the top and bottom plots shows the probability of sharing IBD between the focal individual and its surrogate parent group(s) or unrelated individuals (Unr) on haplotype 0 (top) or haplotype (1). The middle plot shows the boundaries of IBD segment identified, with their respective labels (A=H0 shared with G1 and/or H1 with G2;BA=H1 shared with G1 and/or H0 with G2; C= both H0 and H1 shared with Unr; D=both H0 and H1 shared with G1 or G2). For the scaffold construction, we used only labels A or B, with segment longer than 3cM. The size of the segment used is indicated below their respective labels. Unused IBD segment have no size indicated.
 
 ![](https://github.com/RJHFMSTR/THORIN/blob/main/pipeline/step2_interchromosomal_phasing/Plots/thorin_IBD_plot.HG00544.png?raw=true)
 
 
 
+---
 
 ### Inter-chromosomal phasing from IBD-based scaffolds
 In this step, we will use the IBD-based haplotype scaffold as input in the phasing software SHAPEIT5 to perform inter-chromosomal phasing. Static binairies for the SHAPEIT5 software can be found [here](https://github.com/odelaneau/shapeit5/releases).
@@ -99,6 +102,23 @@ fi
 
 
 When running this script, you will have one output file in VCF/BCF format for each of the autosome. These files are inter-chromosomally phased data.
+
+
+Depending on the proportion of your cohort for which you can perform the inter-chromosomal phasing, it may be better to split your data into target and reference data. Doing so will speed-up computation as you will phase only your target individuals, using the remaining individuals as a reference panel, instead of phasing your entire cohort. This is particuarly helpful if less than half of your cohort's individuals can be inter-chromosomally phased. To do so, simply use `bcftools` to split your data, and use then the option `-H` for SHAPEIT5, in addition to the previous options, as shown below:
+
+<div class="code-example" markdown="1">
+```bash
+TAR=your_target_data.bcf
+REF=your_reference_data.bcf
+BIN=shapeit5/phase_common/bin/phase_common_static
+
+${BIN} -I ${TAR} -H ${REF}-M ${MAP} -O ${OUT} -R ${CHR} -T ${threads} -S ${SCAF}
+```
+</div>
+
+
+
+---
 
 ### Inter-chromosomally phased data filtering
 Since we included in the scaffold file only haplotype segment longer than 3cM shared IBD with surrogate parents, it is possible that some chromosome of a given individual not sharing IBD with surrogate parents were not scaffolded.

@@ -1,4 +1,4 @@
-setwd('~/Dropbox/Ressources/Git_repository/THORIN/pipeline/step2_chrX_ibd/')
+setwd('~/Dropbox/Ressources/Git_repository/THORIN/pipeline/step3_parental_side_determination/step0_chrX_ibd/')
 '%ni%'=Negate('%in%')
 library(dplyr)
 library(parallel)
@@ -36,14 +36,14 @@ find_outliers<-function(data, value){
 
 
 # format benchmark groups
-rel<-read.table('../step1_surrogate_parents/data/benchmark/Relatives.benchmark.side', hea=T)
+rel<-read.table('../../step1_surrogate_parents/data/benchmark/Relatives.benchmark.side', hea=T)
 rel<-rel[rel$target_sex=='Male',]
 rel<-rel[,c(1,3,4)]; rel<-rel[!duplicated(rel),]
 
 # modif -- note: This part add also individual with no IBD sharing. If running on your own dataset with sufficient sample size, remove this step. Here, on the KGP dataset, we don't have enough individuals with IBD sharing with relatives.
 rel2<-data.frame()
 for (t in unique(rel$target)){
-  tmp<-rel[i,]
+  tmp<-rel[rel$target==t,]
   if (dim(tmp)[1]==1){
     
     if (tmp$group=='G1' & tmp$side=='maternal'){
@@ -70,16 +70,18 @@ rel<-rbind(rel, rel2)
 # Assign parental side to IBD tracks
 data='data/THORIN/benchmark/KGP.chrX.benchmark.thorin.prob.ibd'
 dt<-as.data.frame(data.table::fread(data, hea=T))
-dt$side<-rel$side[match(paste0(dt$target,':',dt$UPD),paste0(rel$target,':',rel$group))]
+dt<-dt[dt$Prob!='C',]
+dt$group_h0<-'G1'; dt$group_h0[dt$Prob=='B']<-'G2'
+dt$side<-rel$side[match(paste0(dt$target,':',dt$group_h0),paste0(rel$target,':',rel$group))]
 dt<-dt[!is.na(dt$side),]
 
 # add target with paternal or relatives, but no IBD sharing at all
-rel<-read.table('../step1_surrogate_parents/data/benchmark/Relatives.benchmark.side', hea=T)
+rel<-read.table('../../step1_surrogate_parents/data/benchmark/Relatives.benchmark.side', hea=T)
 for (i in 1:dim(rel)[1]){
   tmp<-rel[i,]
   t=tmp$target
   if (!(t %in% dt$target)){
-    dt<-rbind(dt, data.frame(CHR='chrx', start=0, end=0, Prob='D', length_CM=0, target=t, UPD=tmp$group, side=tmp$side))
+    dt<-rbind(dt, data.frame(CHR='chrx', start=0, end=0, Prob='D', length_CM=0, target=t, UPD='*', group_h0='*', side=tmp$side))
   }
 }
 
@@ -262,14 +264,18 @@ dt <- as.data.frame( dt %>% rowwise() %>% mutate(accuracy = max(accuracyM, accur
 setM<-dt[dt$accuracy_type=='accuracyM',]
 setP<-dt[dt$accuracy_type=='accuracyP',]
 
-setM$maternal_probability<-setM$accuracy
-setM$maternal_group<-setM$UPD
 
-setP$maternal_probability<-setP$accuracy
-setP$maternal_group<-NA; setP$maternal_group[setP$UPD=='G1']<-'G2'; setP$maternal_group[setP$UPD=='G2']<-'G1'
-
-
-dt<-rbind(setM, setP)
+dt<-data.frame()
+if (dim(setM)[1]!=0){
+  setM$maternal_probability<-setM$accuracy
+  setM$maternal_group<-setM$UPD
+  dt<-rbind(dt, setM)
+}
+if (dim(setP)[1]!=0){
+  setP$maternal_probability<-setP$accuracy
+  setP$maternal_group<-NA; setP$maternal_group[setP$UPD=='G1']<-'G2'; setP$maternal_group[setP$UPD=='G2']<-'G1'
+  dt<-rbind(dt, setP)
+}
 
 write.table(dt, 'data/chrx_accuracy_derived_prediction.txt', quote=F, col.names=T, row.names=F, sep='\t')
 
@@ -288,6 +294,8 @@ write.table(dt, 'data/chrx_accuracy_derived_prediction.txt', quote=F, col.names=
 #########################################################################################################
 #### Plots #######################################################################
 #########################################################################################################
+
+system('mkdir -p Plots/')
 
 ### ***
 ### *** Benchmark
@@ -435,7 +443,7 @@ a3_1<-ggplot(tmp, aes(x=cut, y=accuracy)) + geom_line(alpha=.8, , linewidth=1) +
 ### ***
 ### *** Call probabilities frequency
 ### ***
-dt<-read.table("chrx_accuracy_derived_prediction.txt", hea=T)
+dt<-read.table("data/chrx_accuracy_derived_prediction.txt", hea=T)
 colnames(dt)[5]<-'chrx'
 dt<-dt[!is.na(dt$target),]
 step=0.0025
@@ -472,7 +480,7 @@ a4<-ggplot(data=d_data, aes(x=bin, y=n)) + geom_area(aes(fill=type), col='black'
 
 
 a<-plot_grid(a1, NULL, ggarrange(a2_1, a3_1, ncol=2, nrow=1, common.legend = TRUE, legend="bottom"),NULL, a4, ncol=1, rel_heights = c(1,0.1,0.85,0.1,1))
-ggsave('data/chrx_accuracy_derived_prediction.jpg', a,width=8, height=10)
+ggsave('Plots/chrx_accuracy_derived_prediction.jpg', a,width=8, height=10)
 
 
 

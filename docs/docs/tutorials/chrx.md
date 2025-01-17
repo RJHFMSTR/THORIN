@@ -68,7 +68,7 @@ OUT=${ODIR}/KGP.chr${CHR}.benchmark.thorin.prob
 You can then simply plot IBD sharing with paternal and maternal relatives to have a first overview of the IBD sharing differences between relative groups. The code provided in `pipeline/step3_parental_side_determination/step0_chrX_ibd/plot_chrX_IBD_validation_cohort.R` should give you the following plots:
 
 
-![](https://github.com/RJHFMSTR/THORIN/blob/main/pipeline/step3_parental_side_determination/step0_chrX_ibd/chrX_IBD_validation_cohort.png?raw=true)
+![](https://github.com/RJHFMSTR/THORIN/blob/main/pipeline/step3_parental_side_determination/step0_chrX_ibd/Plots/chrX_IBD_validation_cohort.png?raw=true)
 
 ---
 
@@ -88,8 +88,7 @@ After running those two script on the KGP example data, you should have the foll
 
 
 
-![](https://github.com/RJHFMSTR/THORIN/blob/main/pipeline/step3_parental_side_determination/step0_chrX_ibd/chrx_accuracy_derived_prediction?raw=true)
-
+![](https://github.com/RJHFMSTR/THORIN/blob/main/pipeline/step3_parental_side_determination/step0_chrX_ibd/Plots/chrx_accuracy_derived_prediction.jpg?raw=true)
 
 
 
