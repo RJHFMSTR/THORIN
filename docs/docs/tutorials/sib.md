@@ -1,7 +1,7 @@
 ---
 layout: default
-title: 3. Cross-over inference
-nav_order: 3
+title: 2. Cross-over inference
+nav_order: 2
 parent: 4. Parental side inference
 has_children: true
 
@@ -101,6 +101,9 @@ As notified above, when using the KGP data, we dont have enough individuals in t
 
 
 
+
+
+
 ---
 
 When running the above code, it will also produce the two following figures in folder `pipeline/step3_parental_side_determination/step1_sibling_score/Plots/`, which are the equivalent of the figure from our manuscript.
@@ -109,6 +112,9 @@ When running the above code, it will also produce the two following figures in f
 **The benchmark figure**: sib\_score.benchmark.jpg
 
 ![](https://github.com/RJHFMSTR/THORIN/blob/main/pipeline/step3_parental_side_determination/step1_sibling_score/Plots/sib_score.benchmark.jpg?raw=true)
+
+
+---
 
 **The prediction figure**: sib\_score.call.jpg
 
