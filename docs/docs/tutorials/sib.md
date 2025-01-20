@@ -106,7 +106,7 @@ As notified above, when using the KGP data, we dont have enough individuals in t
 
 ---
 
-When running the above code, it will also produce the two following figures in folder `pipeline/step3_parental_side_determination/step1_sibling_score/Plots/`, which are the equivalent of the figure from our manuscript.
+When running the above code, it will also produce the two following figures in folder `pipeline/step3_parental_side_determination/step1_sibling_score/Plots/`, which are the equivalent of the figure from our manuscript, but on the 1,000 Genomes Project data.
 
 
 **The benchmark figure**: sib\_score.benchmark.jpg

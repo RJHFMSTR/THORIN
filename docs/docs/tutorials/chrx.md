@@ -82,7 +82,7 @@ In the first script, `pipeline/step3_parental_side_determination/step0_chrX_ibd/
 
 In the second script, `pipeline/step3_parental_side_determination/step0_chrX_ibd/step2_assign_parental_side_and_plot.R`, we use the validation cohort to derive a probability of a relative being on the paternal or maternal side given it's chromosome X IBD sharing with the focal individual. We compute the accuracy of this process and we probabilistically assign each relative group to a parental side.
 
-After running those two script on the KGP example data, you should have the following plots. This is the equivalent of our supplementary figure on chrX in our [manuscript](https://www.medrxiv.org/content/10.1101/2024.12.03.24318392v1). 
+After running those two script on the KGP example data, you should have the following plots. This is the equivalent of our supplementary figure on chrX in our [manuscript](https://www.medrxiv.org/content/10.1101/2024.12.03.24318392v1), but on the 1,000 Genomes Project data. 
 
 
 
