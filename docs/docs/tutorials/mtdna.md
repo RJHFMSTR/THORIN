@@ -84,11 +84,13 @@ In addition, the script outputs one plot per degree of relatedness summarizing t
 
 
 
+---
 
 **Plots/mtdna_accuracy_derived_prediction.degree_3rd.jpg**: validation and prediction from 3rd degree relatives
 
 ![](https://github.com/RJHFMSTR/THORIN/blob/main/pipeline/step3_parental_side_determination/step2_mtDNA/Plots/mtdna_accuracy_derived_prediction.degree_3rd.jpg?raw=true)
 
+---
 
 **Plots/KGP_mtdna_predictions.jpg**: prediction distribution across all relatedness degrees
 
