@@ -53,7 +53,7 @@ mkdir -p data/relatedness
 In this step, we identify parent-offspring duos and trios, siblings and more distant relatives. We also cluster more distant relatives into surrogate parent groups. Finally, we identify individual for the validation cohort, that is, individuals with both available parental genomes and surrogate parents groups. We use those individuals to assess accuracy of the method and derive specific metrics for sex-chromosome parental side integration.
 
 
-You can find the main script for this step is `pipeline/step1\_surrogate_parents/src/grouping.R'.
+You can find the main script for this step is `pipeline/step1\_surrogate_parents/src/grouping.R`.
 This script relies on function that you can find in script `pipeline/step1\_surrogate\_parents/src/grouping\_functions.KGP.R`. Please note that this script has been adapted to fit the available 1,000GP data, for which we don't have the age of participants. To run on you own cohort, please use script `pipeline/step1\_surrogate\_parents/src/grouping\_functions.R` instead.
 
 
