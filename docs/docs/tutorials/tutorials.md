@@ -14,11 +14,16 @@ In addition, we will also provide tutorials to describe and help applying the en
 
 ## Current stage
 
-We are currently still adapting our pipelines to the 1,000 Genome Project data and posting the updates in real time. Hence, the tutorial presented in this section are still incomplete.
+
+We have adapted our script and pipeline that we use to infer the PofO of alleles in the UK Biobank, to fit the 1,000 Genome Project data. The goal of this it to provide example that and script that are up and running for everyone.
+
+This tutorial is now complete and cover all our inference step, from the download of the example data, to IBD mapping, phasing, imputation, and lastly encoding of the two parental haplotypes.
+
+The final files of this pipeline, that is, parental haplotypes, can directly be used in GWAS to identify parent-of-origin effects.
 
 ## System requirements
 
-We are running all our experiments on Ubuntu 20.04.
+We are running all our experiments on Ubuntu 20.04.6 LTS
 
 {: .fs-6 .fw-300 }
 
