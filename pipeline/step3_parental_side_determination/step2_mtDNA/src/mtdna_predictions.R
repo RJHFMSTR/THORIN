@@ -1,3 +1,4 @@
+setwd('~/Dropbox/Ressources/Git_repository/THORIN/pipeline/step3_parental_side_determination/step2_mtDNA/')
 '%ni%'=Negate('%in%')
 library(dplyr)
 library(parallel)
@@ -586,7 +587,6 @@ dim(dt4)[1]; dim(xx4); length(unique(dt4$target)); length(unique(xx4$target))
 
 
 dt<-rbind(xx2, xx3, xx4)
-dt<-dt[,c(1,2,3,10)]
 write.table(dt, 'data/mtdna_accuracy_derived_prediction.uniq_per_degree.txt', quote=F, col.names=T, row.names=F, sep='\t')
 
 
