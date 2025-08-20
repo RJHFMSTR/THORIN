@@ -1,39 +1,65 @@
 
+# New clustering, handle better MZ twins to increase sample size
 grouping_ped<-function(t, ped=data.frame()){
-        sex_target=sex$sex[sex$ID1==t]
-        # 1.1 Grouping of first-degree relatives (parents, siblings)
-        # 1.1.1 Identify parents (PO)
-        PO<-unique(c(as.character(rel$ID2[rel$ID1==t & rel$Kinship>=po_down & rel$Kinship<po_up & rel$IBS0<0.0012]),as.character(rel$ID1[rel$ID2==t & rel$Kinship>=po_down & rel$Kinship<po_up & rel$IBS0<0.0012])))
-        # 1.1.1.1 Duos
-        if (length(PO)==1){
+	sex_target=sex$sex[sex$ID1==t]
+	age_target=age$age[age$ID1==t]
 
+	# Get IDs of PO relationships
+	PO<-unique(c(as.character(rel$ID2[rel$ID1==t & rel$Kinship>=po_down & rel$Kinship<po_up & rel$IBS0<0.0012]),as.character(rel$ID1[rel$ID2==t & rel$Kinship>=po_down & rel$Kinship<po_up & rel$IBS0<0.0012])))
+	
+	if (length(PO)>0){
+		dpo<-data.frame(PO=PO);
+		dpo$sex<-sex$sex[match(dpo$PO, sex$ID1)]
+		dpo$age<-age$age[match(dpo$PO, age$ID1)]
+		dpo<-dpo[(dpo$age-age_target)>15,] # keeps only parents, remove kids (i.e younger).
+	
+		if (dim(dpo)[1]>0){
+		
+			# check for MZ among parents
+			dpo$mz<-0; dpo$mz[dpo$PO %in% mz]<-1
+			if (1 %in% dpo$mz){
+				if (d$Kinship[(d$ID1==dpo$PO[dpo$mz==1][1] & d$ID2==dpo$PO[dpo$mz==1][2]) | (d$ID1==dpo$PO[dpo$mz==1][2] & d$ID2==dpo$PO[dpo$mz==1][1])] > 0.4){
+					dpomz1<-dpo[dpo$mz==1,]; dpomz1<-dpomz1[1,] # keep only one MZ parent, it does not matter which one, same genetics ...
+					dpo<-rbind(dpo[dpo$mz==0,], dpomz1)
+				}
+			}
 
-                age1<-age$age[age$ID1==PO[1]]
-                if (age$age[age$ID1==t]+15<age1){ # makes sure that the diff in age between parent-offspring in more than 15 years. This is stringent but avoids selecting sibs pairs as parent-offspring.
-                        parent1=PO[1]
-                        sex1=sex$sex[sex$ID1==PO[1]]
-                        if (sex1=='Male'){father=PO[1]; mother='NA'}
-                        if (sex1=='Female'){father='NA'; mother=PO[1]}
-                        ped<-data.frame(target=t, father=father, mother=mother)
-        }}
-
-        # 1.1.1.2 Trios
-        if (length(PO)==2){
-
-
-
-                age1<-age$age[age$ID1==PO[1]]
-                age2<-age$age[age$ID1==PO[2]]
-                if ((age$age[age$ID1==t]+15<age1) & (age$age[age$ID1==t]+15<age2)){
-                        sex1=sex$sex[sex$ID1==PO[1]]
-                        sex2=sex$sex[sex$ID1==PO[2]]
-                        if (sex1!=sex2){ # make sure that the two parent have not the same genetic sex
-                                Tmp<-data.frame(ID1=c(PO[1], PO[2]), sex=c(sex1, sex2))
-                                father=as.character(Tmp$ID1[Tmp$sex=='Male']); mother=as.character(Tmp$ID1[Tmp$sex=='Female'])
-                                ped<-data.frame(target=t, father=father, mother=mother)
-        }}}
-        return(ped)
+			if (dim(dpo)[1]==1 & dpo$sex[1]=='Male'){ped<-data.frame(target=t, father=NA, mother=dpo$PO[1])} #duos father
+			if (dim(dpo)[1]==1 & dpo$sex[1]=='Female'){ped<-data.frame(target=t, father=dpo$PO[1], mother=NA)} # duos mother
+			if (dim(dpo)[1]==2 & (dpo$sex[1]!=dpo$sex[2])){ped<-data.frame(target=t, father=dpo$PO[dpo$sex=='Male'], mother=dpo$PO[dpo$sex=='Female'])} # trios, opposite sex
+			if (dim(dpo)[1]>2){print(t)} # what is this?
+			if (dim(dpo)[1]==2 & (dpo$sex[1]==dpo$sex[2])){print(t)} # what is this?
+		}
+	}
+	return(ped)
 }
+
+## Old clustering
+#grouping_ped<-function(t, ped=data.frame()){
+#        sex_target=sex$sex[sex$ID1==t]
+#        PO<-unique(c(as.character(rel$ID2[rel$ID1==t & rel$Kinship>=po_down & rel$Kinship<po_up & rel$IBS0<0.0012]),as.character(rel$ID1[rel$ID2==t & rel$Kinship>=po_down & rel$Kinship<po_up & rel$IBS0<0.0012])))
+#        if (length(PO)==1){
+#                age1<-age$age[age$ID1==PO[1]]
+#                if (age$age[age$ID1==t]+15<age1){ # makes sure that the diff in age between parent-offspring in more than 15 years. This is stringent but avoids selecting sibs pairs as parent-offspring.
+#                        parent1=PO[1]
+#                        sex1=sex$sex[sex$ID1==PO[1]]
+#                        if (sex1=='Male'){father=PO[1]; mother='NA'}
+#                        if (sex1=='Female'){father='NA'; mother=PO[1]}
+#                        ped<-data.frame(target=t, father=father, mother=mother)
+#        }}
+#        if (length(PO)==2){
+#                age1<-age$age[age$ID1==PO[1]]
+#                age2<-age$age[age$ID1==PO[2]]
+#                if ((age$age[age$ID1==t]+15<age1) & (age$age[age$ID1==t]+15<age2)){
+#                        sex1=sex$sex[sex$ID1==PO[1]]
+#                        sex2=sex$sex[sex$ID1==PO[2]]
+#                        if (sex1!=sex2){ # make sure that the two parent have not the same genetic sex
+#                                Tmp<-data.frame(ID1=c(PO[1], PO[2]), sex=c(sex1, sex2))
+#                                father=as.character(Tmp$ID1[Tmp$sex=='Male']); mother=as.character(Tmp$ID1[Tmp$sex=='Female'])
+#                                ped<-data.frame(target=t, father=father, mother=mother)
+#        }}}
+#        return(ped)
+#}
 
 
 
