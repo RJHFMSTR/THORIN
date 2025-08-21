@@ -140,12 +140,12 @@ d<-d[d$InfType!='UN',]
 
 
 ### I. TRIOS AND DUOS
-
+mz<-unique(c(d$ID1[d$Kinship>po_up & d$IBS0<0.0012], d$ID2[d$Kinship>po_up & d$IBS0<0.0012]))
 rel<-d[d$InfType=='PO',]
 samples<-unique(c(rel$ID1, rel$ID2))
 print(paste0('Total number of individuals to consider for the clustering of trios-duos: ',length(samples)))
 
-x<-mclapply(samples, grouping_ped, mc.cores=N_CORE)
+x<-mclapply(samples, grouping_ped, mz=mz, mc.cores=N_CORE)
 xx<-cbind(bind_rows(x))
 PED<-xx[!is.na(xx$target),]
 

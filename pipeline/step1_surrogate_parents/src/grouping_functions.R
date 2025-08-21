@@ -1,6 +1,6 @@
 
 # New clustering, handle better MZ twins to increase sample size
-grouping_ped<-function(t, ped=data.frame()){
+grouping_ped<-function(t, ped=data.frame(), mz){
 	sex_target=sex$sex[sex$ID1==t]
 	age_target=age$age[age$ID1==t]
 
