@@ -17,7 +17,7 @@ grouping_ped<-function(t, ped=data.frame(), mz){
 		
 			# check for MZ among parents
 			dpo$mz<-0; dpo$mz[dpo$PO %in% mz]<-1
-			if (1 %in% dpo$mz){
+			if ((1 %in% dpo$mz) & (dim(dpo)[1]>1)){
 				if (d$Kinship[(d$ID1==dpo$PO[dpo$mz==1][1] & d$ID2==dpo$PO[dpo$mz==1][2]) | (d$ID1==dpo$PO[dpo$mz==1][2] & d$ID2==dpo$PO[dpo$mz==1][1])] > 0.4){
 					dpomz1<-dpo[dpo$mz==1,]; dpomz1<-dpomz1[1,] # keep only one MZ parent, it does not matter which one, same genetics ...
 					dpo<-rbind(dpo[dpo$mz==0,], dpomz1)

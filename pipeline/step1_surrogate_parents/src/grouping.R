@@ -235,6 +235,32 @@ write.table(OUT, out_relatives_males, quote=F, row.names=F, col.names=F, sep='\t
 
 rel<-as.data.frame(data.table::fread(out_relatives, hea=F))
 ped<-as.data.frame(data.table::fread(out_ped, hea=F))
+ped<-ped[complete.cases(ped),] # keep only trios
+
+
+
+###
+# UNTESTED: Remove trios when parental are related
+###
+remove_related_parents(t, ped=ped){
+	fa<-ped$V2[ped$V1==t]
+        mo<-ped$V3[ped$V1==t]
+	sub1<-d[d$ID1==fa & d$ID2==mo,]
+        sub2<-d[d$ID2==fa & d$ID1==mo,]
+
+	if (dim(sub1)[1]==0 & dim(sub2)[1]==0){
+		return(ped[ped$V1==t,])
+	}
+}
+
+x<-mclapply(unique(ped$V1), remove_related_parents, mc.cores=N_CORE)
+ped<-cbind(bind_rows(x))
+
+###
+#
+###
+
+
 rel<-rel[rel$V1 %in% ped$V1,]
 samples<-rel$V1
 
@@ -273,15 +299,6 @@ dim(res)
 
 # check cases filtered out
 sub<-SIDE[!(SIDE$target %in% res$target),]
-i=2
-t<-sub$target[i]; print(t)
-r<-sub$relative[i]; print(r)
-d[d$ID1==t | d$ID2==t,]
-ped[ped$V1==t,]
-d[d$ID1==r | d$ID2==r,]
-
-
-
 
 res$target_sex<-sex$sex[match(res$target, sex$ID1)]
 res$relative_sex<-sex$sex[match(res$relative, sex$ID1)]
