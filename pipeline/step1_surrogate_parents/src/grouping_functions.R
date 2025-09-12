@@ -5,8 +5,7 @@ grouping_ped<-function(t, ped=data.frame(), mz){
 	age_target=age$age[age$ID1==t]
 
 	# Get IDs of PO relationships
-	PO<-unique(c(as.character(rel$ID2[rel$ID1==t & rel$Kinship>=po_down & rel$Kinship<po_up & rel$IBS0<0.0012]),as.character(rel$ID1[rel$ID2==t & rel$Kinship>=po_down & rel$Kinship<po_up & rel$IBS0<0.0012])))
-	
+	PO<-unique(c(as.character(rel$ID2[rel$ID1==t & rel$InfType=='PO']),as.character(rel$ID1[rel$ID2==t & rel$InfType=='PO'])))	
 	if (length(PO)>0){
 		dpo<-data.frame(PO=PO);
 		dpo$sex<-sex$sex[match(dpo$PO, sex$ID1)]
@@ -18,7 +17,8 @@ grouping_ped<-function(t, ped=data.frame(), mz){
 			# check for MZ among parents
 			dpo$mz<-0; dpo$mz[dpo$PO %in% mz]<-1
 			if ((1 %in% dpo$mz) & (dim(dpo)[1]>1)){
-				if (d$Kinship[(d$ID1==dpo$PO[dpo$mz==1][1] & d$ID2==dpo$PO[dpo$mz==1][2]) | (d$ID1==dpo$PO[dpo$mz==1][2] & d$ID2==dpo$PO[dpo$mz==1][1])] > 0.4){
+                               if (d$InfType[(d$ID1==dpo$PO[dpo$mz==1][1] & d$ID2==dpo$PO[dpo$mz==1][2]) | (d$ID1==dpo$PO[dpo$mz==1][2] & d$ID2==dpo$PO[dpo$mz==1][1])] == 'Dup/MZ'){
+
 					dpomz1<-dpo[dpo$mz==1,]; dpomz1<-dpomz1[1,] # keep only one MZ parent, it does not matter which one, same genetics ...
 					dpo<-rbind(dpo[dpo$mz==0,], dpomz1)
 				}
