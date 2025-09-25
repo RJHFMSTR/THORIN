@@ -242,16 +242,17 @@ ped<-ped[complete.cases(ped),] # keep only trios
 ###
 # UNTESTED: Remove trios when parental are related
 ###
-remove_related_parents(t, ped=ped){
+remove_related_parents <- function(t){
 	fa<-ped$V2[ped$V1==t]
-        mo<-ped$V3[ped$V1==t]
+	mo<-ped$V3[ped$V1==t]
 	sub1<-d[d$ID1==fa & d$ID2==mo,]
-        sub2<-d[d$ID2==fa & d$ID1==mo,]
+	sub2<-d[d$ID2==fa & d$ID1==mo,]
 
-	if (dim(sub1)[1]==0 & dim(sub2)[1]==0){
+	if ((dim(sub1)[1]==0) & (dim(sub2)[1]==0)){
 		return(ped[ped$V1==t,])
 	}
 }
+
 
 x<-mclapply(unique(ped$V1), remove_related_parents, mc.cores=N_CORE)
 ped<-cbind(bind_rows(x))
