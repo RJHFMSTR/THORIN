@@ -24,8 +24,8 @@ grouping_ped<-function(t, ped=data.frame(), mz){
 				}
 			}
 
-			if (dim(dpo)[1]==1 & dpo$sex[1]=='Male'){ped<-data.frame(target=t, father=NA, mother=dpo$PO[1])} #duos father
-			if (dim(dpo)[1]==1 & dpo$sex[1]=='Female'){ped<-data.frame(target=t, father=dpo$PO[1], mother=NA)} # duos mother
+			if (dim(dpo)[1]==1 & dpo$sex[1]=='Female'){ped<-data.frame(target=t, father=NA, mother=dpo$PO[1])} #duos mother
+			if (dim(dpo)[1]==1 & dpo$sex[1]=='Male'){ped<-data.frame(target=t, father=dpo$PO[1], mother=NA)} # duos father
 			if (dim(dpo)[1]==2 & (dpo$sex[1]!=dpo$sex[2])){ped<-data.frame(target=t, father=dpo$PO[dpo$sex=='Male'], mother=dpo$PO[dpo$sex=='Female'])} # trios, opposite sex
 			if (dim(dpo)[1]>2){print(t)} # what is this?
 			if (dim(dpo)[1]==2 & (dpo$sex[1]==dpo$sex[2])){print(t)} # what is this?
