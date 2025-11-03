@@ -107,11 +107,12 @@ rel4_up=1/(2**(9/2))
 
 if (!('InfType' %in% colnames(d))){
   d$InfType<-'UN'
-  d$InType[d$Kinship>=po_down & d$Kinship<po_up & d$IBS0<0.0012]<-'PO'
-  d$InType[d$Kinship>=po_down & d$Kinship<po_up & d$IBS0>0.0012]<-'FS'
-  d$InType[d$Kinship>=rel2_down & d$Kinship<rel2_up]<-'2nd'
-  d$InType[d$Kinship>=rel3_down & d$Kinship<rel3_up]<-'3rd'
-  d$InType[d$Kinship>=rel4_down & d$Kinship<rel4_up]<-'4th'
+  d$InfType[d$Kinship>po_up]<-'Dup/MZ'
+  d$InfType[d$Kinship>=po_down & d$Kinship<po_up & d$IBS0<0.0012]<-'PO'
+  d$InfType[d$Kinship>=po_down & d$Kinship<po_up & d$IBS0>0.0012]<-'FS'
+  d$InfType[d$Kinship>=rel2_down & d$Kinship<rel2_up]<-'2nd'
+  d$InfType[d$Kinship>=rel3_down & d$Kinship<rel3_up]<-'3rd'
+  d$InfType[d$Kinship>=rel4_down & d$Kinship<rel4_up]<-'4th'
 }
 
 
