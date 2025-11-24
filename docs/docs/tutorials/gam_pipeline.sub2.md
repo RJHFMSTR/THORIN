@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Using inter-chromosomally phased data
+title: B. Using inter-chromosomally phased data
 nav_order: 2
 parent: Genetic Assortative Mating pipeline tutorial
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Using mate-pairs
+title: A. Using mate-pairs
 nav_order: 1
 parent: Genetic Assortative Mating pipeline tutorial
 ---
