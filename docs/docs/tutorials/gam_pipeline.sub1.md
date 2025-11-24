@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Assortative Mating computation from mate-pairs
+title: Using mate-pairs
 nav_order: 1
 parent: Genetic Assortative Mating pipeline tutorial
 ---
@@ -19,7 +19,7 @@ parent: Genetic Assortative Mating pipeline tutorial
 
 When computing genetic assortative mating (GAM) using our haplotype-based method, we likely also want to compare those estimates to a set of established mate-pair.
 
-In this section, we will see how to infer mate-pairs in the UK Biobank cohort.
+In this section, we will see how to infer mate-pairs in the UK Biobank cohort, and how to use these pairs to estimate GAM.
 
 For the Estonian Biobank, we simply use the large (>10k) number of mate-pairs that can directly be inferred from genetically determined parent-offspring trios (see [here](https://rjhfmstr.github.io/THORIN/docs/tutorials/cluster_relatives.html) for the tutorial).
 
@@ -30,14 +30,14 @@ For the Estonian Biobank, we simply use the large (>10k) number of mate-pairs th
 
 Following [Yengo et al., 2018](https://www.nature.com/articles/s41562-018-0476-3), we infer mate-pairs using a combination of phenotypes from the UK Biobank:
 
-- home_location_east_1km : code 22702
-- townsend_deprivation_index : code 22189
-- home_location_north_1km : code 22704
-- average_total_household_income_before_tax : code 738
+- home location east 1km : code 22702
+- townsend_deprivation index : code 22189
+- home location north 1km : code 22704
+- average total household income before tax : code 738
 - smokers_in_household : code 1259
 - number_in_household : code 709
-- lengt_of_time_at_current_address : code 699
-- how_are_people_in_household_related_to_participant : code 6141
+- lengt of time at current address : code 699
+- how are people in household related to participant : code 6141
 
 
 Assuming you already have :
@@ -169,6 +169,9 @@ To compute PGS for the mate-pairs individuals, you'll need:
 
 <div class="code-example" markdown="1">
 ```bash
+PHECODE=21001
+SCORE=${PHECODE}.betas.tsv.gz
+OUT=${PHECODE}.mate_pairs.txt
 pgs-calc apply --ref ${SCORE} ${VCF} --out ${OUT} --threads 1
 
 ```
@@ -219,7 +222,7 @@ pc_vars <- paste0("PC", 1:10)
 run <- function(pgs) {
 
   ## Read mate-pair PGS file for this trait
-  infile <- paste0("Out/PGS_calc/Scores/", pgs, ".mate_pairs.txt") # one score per individual for the 22 autosomes.
+  infile <- paste0(" pgs, ".mate_pairs.txt") # one score per individual for the 22 autosomes.
   scores <- fread(infile)
   setnames(scores, 1:2, c("ID", "SCORE"))
 
