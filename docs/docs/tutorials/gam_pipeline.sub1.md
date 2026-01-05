@@ -222,7 +222,7 @@ pc_vars <- paste0("PC", 1:10)
 run <- function(pgs) {
 
   ## Read mate-pair PGS file for this trait
-  infile <- paste0(" pgs, ".mate_pairs.txt") # one score per individual for the 22 autosomes.
+  infile <- paste0(pgs, ".mate_pairs.txt") # one score per individual for the 22 autosomes.
   scores <- fread(infile)
   setnames(scores, 1:2, c("ID", "SCORE"))
 
