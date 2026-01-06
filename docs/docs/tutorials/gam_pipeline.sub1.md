@@ -47,7 +47,7 @@ Assuming you already have :
 - a file with the participants' genetically inferred sex
 
 
-You can infer mate-pairs using the script [provided on github](https://github.com/RJHFMSTR/THORIN/blob/main/alternative_projects/GAM/cluster_ukbb_mate_pairs.R) and included below: 
+You can infer mate-pairs using the script [provided on github](https://github.com/RJHFMSTR/GAM/blob/main/src/cluster_ukbb_mate_pairs.R) and included below: 
 
 
 <div class="code-example" markdown="1">
@@ -190,7 +190,7 @@ For this, you will need:
 
 
 
-Using these files, you can estimate GAM from mate-pairs using the script [provided on github](https://github.com/RJHFMSTR/THORIN/blob/main/alternative_projects/GAM/compute_gam_mate_pairs.R) and included below:
+Using these files, you can estimate GAM from mate-pairs using the script [provided on github](https://github.com/RJHFMSTR/GAM/blob/main/src/compute_gam_mate_pairs.R) and included below:
 
 <div class="code-example" markdown="1">
 ```bash

@@ -32,7 +32,7 @@ Practically, it means that, for each individual, we will use haplotype 1 and hap
 The inter-chromosomal phasing pipeline is available as part of our [parent-of-origin inference tutorial](https://rjhfmstr.github.io/THORIN/docs/tutorials/interchrs.html). Follow this tutorial up to [step 6; parental haplotypes imputation](https://rjhfmstr.github.io/THORIN/docs/tutorials/genotype_imputation.html).
 
 Once you have imputed you parental haplotypes, we simply need to split the genotype file in .vcf.gz format into two separate files, one for each parental haplotypes.
-This can be done using the python script [provided on github](https://github.com/RJHFMSTR/THORIN/blob/main/alternative_projects/GAM/split_parental_haplotypes.py) and pasted below:
+This can be done using the python script [provided on github](https://github.com/RJHFMSTR/GAM/blob/main/src/split_parental_haplotypes.py) and pasted below:
 
 
 
@@ -138,7 +138,7 @@ awk -F',' 'NR==FNR {if(FNR>1){gsub(/"/,""); hap1[$1]=$2} next}
 
 
 # Haploid-based GAM estimates
-Now, we can simply use the PGS derived from each haplotype to estimate GAM, as implemented in the R script provided [on github](https://github.com/RJHFMSTR/THORIN/blob/main/alternative_projects/GAM/compute_haploid_gam.R) and pasted below:
+Now, we can simply use the PGS derived from each haplotype to estimate GAM, as implemented in the R script [provided on github](https://github.com/RJHFMSTR/GAM/blob/main/src/compute_haploid_gam.R) and pasted below:
 
 <div class="code-example" markdown="1">
 ```bash

@@ -21,6 +21,13 @@ Assortative mating, that is, the tendency for individuals to select partners wit
 
 To estimate genetic assortative mating (GAM) from biobank individuals, in the absence of mate-pairs, we first reconstructed and separated maternally and paternally inherited haplotypes. For this, we followed [our pipeline](https://rjhfmstr.github.io/THORIN/docs/tutorials/interchrs.html) to perform inter-chromosomal phasing from inferred surrogate parents.
 
+We then compute a PGS for each haplotype of each individual, effectively proxying partial parental PGS, which we correlate to estimate GAM.
+
+In this tutorial, we provide a detailed explanation on how to estimate GAM from:
+- A) mate-pairs
+- B) biobank individuals, using inferred parental haplotypes (i.e inter-chromosomally phased data).
+
+All scripts specific to this projects are hosted on a dedicated github: [https://github.com/RJHFMSTR/GAM](https://github.com/RJHFMSTR/GAM)
 
 ---
 
