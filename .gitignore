@@ -10,5 +10,4 @@ pipeline/step3_parental_side_determination/step3_combined_predictors/Rplots.pdf
 pipeline/step3_parental_side_determination/step3_combined_predictors/Plots/
 pipeline/step4_impute_haplotypes/data/
 pipeline/step5_encode_parental_haplotypes/data/
-test/debug/06012026/.RData
-test/debug/06012026/out/KGP.chr20.thorin.full.prob
+test/debug/
