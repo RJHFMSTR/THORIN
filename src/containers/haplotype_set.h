@@ -56,7 +56,7 @@ public:
 	void writeCopyingProbabilities(string ofile, variant_map & V);
 	void writeCopyingProbabilitiesBCF(string ofile, variant_map & V);
 	void computeIbdProbabilities(variant_map & V);
-	void computeIbdProbabilities(string ofile, variant_map & V, float scaffold_cM);
+	void computeIbdProbabilities(string ofile, variant_map & V, float scaffold_cM, float smooth_threshold = 0.0);
 	void writeParentPhasedBcf(string ofile, variant_map & V);
 };
 

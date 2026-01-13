@@ -28,7 +28,8 @@ void thorin::declare_options() {
 			("help", "Produce help message")
 			("seed", bpo::value<int>()->default_value(15052011), "Seed of the random number generator")
 			("thread,T", bpo::value<int>()->default_value(1), "Number of thread used")
-			("scaffold-cM", bpo::value<float>()->default_value(0.0), "Minimal size for an IBD segment to be considered by the scaffold");
+			("scaffold-cM", bpo::value<float>()->default_value(3.0), "Minimal size for an IBD segment to be considered by the scaffold")
+			("smooth", bpo::value<float>()->default_value(0.25), "Smooth IBD segments shorter than this threshold (cM)");
 
 	bpo::options_description opt_input ("Input files");
 	opt_input.add_options()
@@ -66,10 +67,10 @@ void thorin::parse_command_line(vector < string > & args) {
 	if (options.count("log") && !vrb.open_log(options["log"].as < string > ()))
 		vrb.error("Impossible to create log file [" + options["log"].as < string > () +"]");
 
-	vrb.title("THORINv2 - Target Haplotype ORigin INference");
+	vrb.title("THORIN - Target Haplotype ORigin INference");
 	vrb.bullet("Author        : Olivier DELANEAU & Robin HOFMEISTER & Théo CAVINATO, University of Lausanne");
 	vrb.bullet("Contact       : olivier.delaneau@gmail.com, robin.j.hofmeister@gmail.com, theo.cavinato@gmail.com");
-	vrb.bullet("Version       : 2.0");
+	vrb.bullet("Version       : 1.2.1");
 	vrb.bullet("Run date      : " + tac.date());
 }
 
@@ -100,6 +101,9 @@ void thorin::check_options() {
 
 	if (!options["effective-size"].defaulted() && options["effective-size"].as < int > () < 1)
 		vrb.error("You must specify a positive effective size");
+
+	if (options.count("smooth") && options["smooth"].as < float > () < 0.0)
+		vrb.error("Smoothing threshold must be non-negative (>= 0.0 cM)");
 }
 
 void thorin::verbose_files() {
@@ -117,4 +121,6 @@ void thorin::verbose_options() {
 	vrb.bullet("Seed    : " + stb.str(options["seed"].as < int > ()));
 	vrb.bullet("Threads : " + stb.str(options["thread"].as < int > ()) + " threads");
 	vrb.bullet("HMM     : Recombination rates given by genetic map");
+	if (!options["smooth"].defaulted() && options["smooth"].as < float > () > 0.0)
+		vrb.bullet("Smoothing : " + stb.str(options["smooth"].as < float > (), 2) + " cM");
 }

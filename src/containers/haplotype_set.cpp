@@ -200,107 +200,6 @@ void haplotype_set::computeIbdProbabilities(variant_map & V){
 		int bp_pos_before = last_bp_pos;
 		float PD_G1_sum = 0.0, PD_G2_sum = 0.0;
 		int last_l = 0;
-		for (int l = 0 ; l  < n_site ; l ++) {
-			double cm_pos = V.vec_pos[l]->cm;
-			int bp_pos = V.vec_pos[l]->bp;
-
-			//--- Compute probabilities ---//
-			// BE CAREFUL OF CASE WHERE YOU HAVE NA //
-			float H0G1 = copyingProbabilities[2*t+0][ngroups*l+0]; 
-			float H0G2 = copyingProbabilities[2*t+0][ngroups*l+1]; 
-			float H0U = copyingProbabilities[2*t+0][ngroups*l+2]; 
-			float H1G1 = copyingProbabilities[2*t+1][ngroups*l+0]; 
-			float H1G2 = copyingProbabilities[2*t+1][ngroups*l+1]; 
-			float H1U = copyingProbabilities[2*t+1][ngroups*l+2]; 
-
-			float PA =  H0G1 * H1G2 + H0G1 * H1U + H1G2 * H0U; // IBD and phasing good
-			float PB =  H0G2 * H1G1 + H0G2 * H1U + H1G1 * H0U; // IBD and phasing error
-			float PC = H0U * H1U; // no ibd in region
-			float PD = H0G1*H1G1 + H0G2*H1G2; // disomy
-			float P_sum = PA + PB + PC + PD;
-
-			// normalize
-			PA = PA/P_sum;
-			PB = PB/P_sum;
-			PC = PC/P_sum;
-			PD = PD/P_sum;
-			float Probs[] = {PA, PB, PC, PD};
-
-			// get PD sum in case we want UPD
-			PD_G1_sum+=H0G1*H1G1;
-			PD_G2_sum+=H0G2*H1G2;
-
-			//std::cout << l << " " << bp_pos << " " << cm_pos << " " << H0G1 << " " << H0G2 << " " << H0U << " " << H1G1 << " " << H1G2 << " " << H1U << std::endl;
-
-			//--- Check if we are in a new site (IBD status) --//
-			// find index of maximum value 
-			int curr_ibd_status = 0;
-			float max_val = -1;
-			for(int i = 0; i<4; i++){ if(max_val < Probs[i]) {max_val=Probs[i]; curr_ibd_status=i;}};
-			//std::cout << max_val << " " << PA << " " << PB << " " << PC << " " << PD << " " << curr_ibd_status << " " << ibd_status << " " << last_bp_pos << " " << bp_pos << " " << ibd_status << " " << cm_pos - last_cm_pos << std::endl;
-
-			// if IBD status change, how long was the segments?
-			if (curr_ibd_status!=ibd_status && ibd_status >= 0){
-				float length = cm_pos - last_cm_pos;
-				// find UPD field
-				std::string UPD = "U";
-				if (ibd_status == 3) UPD = (PD_G1_sum > PD_G2_sum) ? "G1" : "G2";
-				// output
-				last_cm_pos = cm_pos; last_bp_pos = bp_pos; 
-				// store segment
-				// you can put a condition with the segment size if you want to filter small segments
-				// if segment is superior to 3 cM (or the argument), we will define ibd_status
-				if(length > 3){
-					for(int sub_l = last_l; sub_l<l; sub_l++) parentalPhase[t][sub_l] = ibd_status;
-				}
-			
-				PD_G1_sum = 0.0; PD_G2_sum=0.0;
-				last_l = l;
-			}
-			ibd_status = curr_ibd_status;
-			bp_pos_before = bp_pos;
-
-		}
-
-		
-		// last iteration
-		std::string UPD = "U";
-		if (ibd_status == 3) UPD = (PD_G1_sum > PD_G2_sum) ? "G1" : "G2";
-		// for(int sub_l = last_l; sub_l<n_site; sub_l++) parentalPhase[t][sub_l] = ibd_status;
-
-	}
-	*/
-
-
-}
-
-//1. compute probabilities A, B and ...
-void haplotype_set::computeIbdProbabilities(string ofile, variant_map & V, float scaffold_cM){
-	vrb.bullet("Finding IBD segments and writing in [" + ofile + "]");
-	//--- Prepare parentalPhase ---//
-	parentalPhase = vector < vector < int >> (sourceIDXs.size());
-	for(int i = 0; i<sourceIDXs.size(); i++) parentalPhase[i] = vector<int> (n_site, 2);
-
-	//--- Prepare output ---///
-	//Write file header
-	output_file fd (ofile);
-	fd << "CHR\tstart\tend\tProb\tlength_CM\ttarget\tUPD";
-	fd << endl;
-
-	//--- Find IBD segments ---//
-	// for each individuals
-	std::string chr = V.vec_pos[0]->chr;
-	char P_letter[] = {'A','B','C','D'};
-	int last_l = 0;
-	for (int t = 0 ; t < sourceIDXs.size() ; t ++) {
-		// for each site
-		int ibd_status=-1; // 0 = A, 1= B , 2=C, 3=D
-		int ngroups = sourceIDXs[t].size() + hasHole;
-		double last_cm_pos = V.vec_pos[0]->cm;
-		int last_bp_pos = V.vec_pos[0]->bp;
-		int bp_pos_before = last_bp_pos;
-		float PD_G1_sum = 0.0, PD_G2_sum = 0.0;
-		last_l = 0;
 		if(ngroups!= 3 and ngroups!=2) vrb.error("Copying probabilities contains:" + to_string(ngroups) + "columns instead of 2 or 3. Please verify your -T file");
 		for (int l = 0 ; l  < n_site ; l ++) {
 			double cm_pos = V.vec_pos[l]->cm;
@@ -357,18 +256,16 @@ void haplotype_set::computeIbdProbabilities(string ofile, variant_map & V, float
 				float length = cm_pos - last_cm_pos;
 				// find UPD field
 				std::string UPD = "U";
-				if (ibd_status == 3){
-					if (ngroups == 3) UPD = (PD_G1_sum > PD_G2_sum) ? "G1" : "G2";
-					else UPD = "G";
-				}
+				if (ibd_status == 3) UPD = (PD_G1_sum > PD_G2_sum) ? "G1" : "G2";
 				// output
-				fd << chr << "\t" << last_bp_pos << "\t" << bp_pos_before << "\t" << P_letter[ibd_status] << "\t" << length << "\t" << IDs[targetIDXs[t]] << "\t" << UPD;
-				fd << endl;
 				last_cm_pos = cm_pos; last_bp_pos = bp_pos; 
 				// store segment
 				// you can put a condition with the segment size if you want to filter small segments
-				if(length >= scaffold_cM) for(int sub_l = last_l; sub_l<l; sub_l++) parentalPhase[t][sub_l] = ibd_status;
-
+				// if segment is superior to 3 cM (or the argument), we will define ibd_status
+				if(length > 3){
+					for(int sub_l = last_l; sub_l<l; sub_l++) parentalPhase[t][sub_l] = ibd_status;
+				}
+			
 				PD_G1_sum = 0.0; PD_G2_sum=0.0;
 				last_l = l;
 			}
@@ -381,14 +278,196 @@ void haplotype_set::computeIbdProbabilities(string ofile, variant_map & V, float
 		// last iteration
 		std::string UPD = "U";
 		if (ibd_status == 3) UPD = (PD_G1_sum > PD_G2_sum) ? "G1" : "G2";
-		fd << chr << "\t" << last_bp_pos << "\t" << V.vec_pos[V.size()-1]->bp << "\t" << P_letter[ibd_status] << "\t" << V.vec_pos[V.size()-1]->cm - last_cm_pos << "\t" << IDs[targetIDXs[t]] << "\t" << UPD;
-		fd << endl;
+		// for(int sub_l = last_l; sub_l<n_site; sub_l++) parentalPhase[t][sub_l] = ibd_status;
 
-		float length = V.vec_pos[V.size()-1]->cm - last_cm_pos;
-		if(length >= scaffold_cM) for (int sub_l = last_l; sub_l<n_site; sub_l++) parentalPhase[t][sub_l] = ibd_status;
+	}
+	*/
+
+
+}
+
+// Structure to hold segment information
+struct IbdSegment {
+	int start_bp;
+	int end_bp;
+	double start_cm;
+	double end_cm;
+	int ibd_status;  // 0=A, 1=B, 2=C, 3=D
+	std::string UPD;
+	int start_idx;
+	int end_idx;
+};
+
+//1. compute probabilities A, B and ... WITH SMOOTHING
+void haplotype_set::computeIbdProbabilities(string ofile, variant_map & V, float scaffold_cM, float smooth_threshold){
+	vrb.bullet("Finding IBD segments and writing in [" + ofile + "]");
+	if (smooth_threshold > 0) {
+		vrb.bullet("Smoothing segments shorter than " + stb.str(smooth_threshold, 2) + " cM");
+	}
+	
+	//--- Prepare parentalPhase ---//
+	parentalPhase = vector < vector < int >> (sourceIDXs.size());
+	for(int i = 0; i<sourceIDXs.size(); i++) parentalPhase[i] = vector<int> (n_site, 2);
+
+	//--- Prepare output ---///
+	output_file fd (ofile);
+	fd << "CHR\tstart\tend\tProb\tlength_CM\ttarget\tUPD";
+	fd << endl;
+
+	//--- Find IBD segments ---//
+	std::string chr = V.vec_pos[0]->chr;
+	char P_letter[] = {'A','B','C','D'};
+	
+	for (int t = 0 ; t < sourceIDXs.size() ; t ++) {
+		// Store segments for this individual
+		vector<IbdSegment> segments;
+		
+		int ibd_status=-1; // 0 = A, 1= B , 2=C, 3=D
+		int ngroups = sourceIDXs[t].size() + hasHole;
+		double last_cm_pos = V.vec_pos[0]->cm;
+		int last_bp_pos = V.vec_pos[0]->bp;
+		int bp_pos_before = last_bp_pos;
+		float PD_G1_sum = 0.0, PD_G2_sum = 0.0;
+		int last_l = 0;
+		
+		if(ngroups!= 3 and ngroups!=2) vrb.error("Copying probabilities contains:" + to_string(ngroups) + "columns instead of 2 or 3. Please verify your -T file");
+		
+		for (int l = 0 ; l  < n_site ; l ++) {
+			double cm_pos = V.vec_pos[l]->cm;
+			int bp_pos = V.vec_pos[l]->bp;
+
+			//--- Compute probabilities ---//
+			float PA, PB, PC, PD, P_sum;
+
+			if(ngroups == 3){
+				float H0G1 = copyingProbabilities[2*t+0][ngroups*l+0]; 
+				float H0G2 = copyingProbabilities[2*t+0][ngroups*l+1]; 
+				float H0U = copyingProbabilities[2*t+0][ngroups*l+2]; 
+				float H1G1 = copyingProbabilities[2*t+1][ngroups*l+0]; 
+				float H1G2 = copyingProbabilities[2*t+1][ngroups*l+1]; 
+				float H1U = copyingProbabilities[2*t+1][ngroups*l+2]; 
+
+				PA =  H0G1 * H1G2 + H0G1 * H1U + H1G2 * H0U;
+				PB =  H0G2 * H1G1 + H0G2 * H1U + H1G1 * H0U;
+				PC = H0U * H1U;
+				PD = H0G1*H1G1 + H0G2*H1G2;
+				PD_G1_sum+=H0G1*H1G1; PD_G2_sum+=H0G2*H1G2;
+			}
+			else{
+				float H0G = copyingProbabilities[2*t+0][ngroups*l+0]; 
+				float H0U = copyingProbabilities[2*t+0][ngroups*l+1]; 
+				float H1G = copyingProbabilities[2*t+1][ngroups*l+0]; 
+				float H1U = copyingProbabilities[2*t+1][ngroups*l+1]; 
+
+				if(groupIDs[t][0] == "G1") {PA = H0G * H1U; PB = H1G * H0U;}
+				else if(groupIDs[t][0] == "G2") {PA = H1G * H0U; PB = H0G * H1U;}
+				else {vrb.error("Wrong group name: " + groupIDs[t][0]+ ". Should either be G1 or G2");}
+				PC = H0U * H1U;
+				PD = H0G * H1G;
+			}
+
+			// normalize
+			P_sum = PA + PB + PC + PD;
+			PA = PA/P_sum;
+			PB = PB/P_sum;
+			PC = PC/P_sum;
+			PD = PD/P_sum;
+			float Probs[] = {PA, PB, PC, PD};
+
+			//--- Check if we are in a new site (IBD status) --//
+			int curr_ibd_status = 0;
+			float max_val = -1;
+			for(int i = 0; i<4; i++){ if(max_val < Probs[i]) {max_val=Probs[i]; curr_ibd_status=i;}};
+
+			// if IBD status change, store the segment
+			if (curr_ibd_status!=ibd_status && ibd_status >= 0){
+				IbdSegment seg;
+				seg.start_bp = last_bp_pos;
+				seg.end_bp = bp_pos_before;
+				seg.start_cm = last_cm_pos;
+				seg.end_cm = cm_pos;
+				seg.ibd_status = ibd_status;
+				seg.start_idx = last_l;
+				seg.end_idx = l;
+				
+				// Determine UPD field
+				if (ibd_status == 3){
+					if (ngroups == 3) seg.UPD = (PD_G1_sum > PD_G2_sum) ? "G1" : "G2";
+					else seg.UPD = "G";
+				} else {
+					seg.UPD = "U";
+				}
+				
+				segments.push_back(seg);
+				
+				last_cm_pos = cm_pos; 
+				last_bp_pos = bp_pos;
+				PD_G1_sum = 0.0; PD_G2_sum=0.0;
+				last_l = l;
+			}
+			ibd_status = curr_ibd_status;
+			bp_pos_before = bp_pos;
+		}
+
+		// Add last segment
+		IbdSegment seg;
+		seg.start_bp = last_bp_pos;
+		seg.end_bp = V.vec_pos[V.size()-1]->bp;
+		seg.start_cm = last_cm_pos;
+		seg.end_cm = V.vec_pos[V.size()-1]->cm;
+		seg.ibd_status = ibd_status;
+		seg.start_idx = last_l;
+		seg.end_idx = n_site;
+		if (ibd_status == 3){
+			if (ngroups == 3) seg.UPD = (PD_G1_sum > PD_G2_sum) ? "G1" : "G2";
+			else seg.UPD = "G";
+		} else {
+			seg.UPD = "U";
+		}
+		segments.push_back(seg);
+
+		//--- SMOOTHING PASS ---//
+		if (smooth_threshold > 0 && segments.size() >= 3) {
+			bool changes_made = true;
+			while (changes_made) {
+				changes_made = false;
+				for (int i = 1; i < segments.size() - 1; i++) {
+					float seg_length = segments[i].end_cm - segments[i].start_cm;
+					// Check if this segment is short and flanked by identical segments
+					if (seg_length < smooth_threshold && 
+					    segments[i-1].ibd_status == segments[i+1].ibd_status) {
+						// Merge: extend previous segment to include this one and next
+						segments[i-1].end_bp = segments[i+1].end_bp;
+						segments[i-1].end_cm = segments[i+1].end_cm;
+						segments[i-1].end_idx = segments[i+1].end_idx;
+						// Remove the middle and next segment
+						segments.erase(segments.begin() + i, segments.begin() + i + 2);
+						changes_made = true;
+						break; // Restart the smoothing pass
+					}
+				}
+			}
+		}
+
+		//--- Write smoothed segments and update parentalPhase ---//
+		for (int i = 0; i < segments.size(); i++) {
+			float length = segments[i].end_cm - segments[i].start_cm;
+			
+			// Write to file
+			fd << chr << "\t" << segments[i].start_bp << "\t" << segments[i].end_bp << "\t" 
+			   << P_letter[segments[i].ibd_status] << "\t" << length << "\t" 
+			   << IDs[targetIDXs[t]] << "\t" << segments[i].UPD;
+			fd << endl;
+			
+			// Update parentalPhase if segment is long enough
+			if(length >= scaffold_cM) {
+				for(int sub_l = segments[i].start_idx; sub_l < segments[i].end_idx; sub_l++) {
+					parentalPhase[t][sub_l] = segments[i].ibd_status;
+				}
+			}
+		}
 	}
 	fd.close();
-
 }
 
 void haplotype_set::writeParentPhasedBcf(string ofile, variant_map & V) {
