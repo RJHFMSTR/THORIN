@@ -22,8 +22,8 @@ OFILE=$(shell for file in `find src -name *.cpp`; do echo obj/$$(basename $$file
 VPATH=$(shell for file in `find src -name *.cpp`; do echo $$(dirname $$file); done)
 
 NAME=$(shell basename $(CURDIR))
-BFILE=bin/thorin_v1.2
-EXEFILE=bin/thorin_v1.2_static
+BFILE=bin/thorin_v1.3
+EXEFILE=bin/thorin_v1.3_static
 
 #COMMIT_VERS=$(shell git rev-parse --short HEAD)
 #COMMIT_DATE=$(shell git log -1 --format=%cd --date=short)
