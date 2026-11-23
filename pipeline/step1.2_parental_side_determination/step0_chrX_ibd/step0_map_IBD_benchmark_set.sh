@@ -7,7 +7,7 @@ UNR=../../step1_surrogate_parents/data/relatedness/unrelated/KGP.chr${CHR}.gsa.u
 MAP=../../../maps/chrX.b38.gmap.gz
 GRP=../../step1_surrogate_parents/data/benchmark/Relatives.benchmark.group
 
-BIN=../../../bin/thorin_v1.2_static
+BIN=../../../bin/thorin_v1.3_static
 
 
 ODIR=data/THORIN/benchmark

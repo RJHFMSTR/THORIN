@@ -8,7 +8,7 @@ UNR=../step1_surrogate_parents/data/relatedness/unrelated/KGP.chr${CHR}.gsa.unre
 MAP=/home/rhofmeis/Dropbox/Ressources/Git_repository/THORIN/maps/chr${CHR}.b38.gmap.gz
 GRP=../step1_surrogate_parents/data/Relatives.group
 
-BIN=/home/rhofmeis/Dropbox/Ressources/Git_repository/THORIN/bin/thorin_v1.2_static
+BIN=/home/rhofmeis/Dropbox/Ressources/Git_repository/THORIN/bin/thorin_v1.3_static
 
 ODIR=data/THORIN
 mkdir -p ${ODIR}
