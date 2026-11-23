@@ -54,7 +54,7 @@ Rscript src/format_sib_group.R
 
 
 # Run THORIN per chromosome
-BIN=THORIN/bin/thorin_v1.2_static # adapt path
+BIN=THORIN/bin/thorin_v1.3_static # adapt path
 GRP=data/sibs_with_phasing.group
 ODIR=data/THORIN
 mkdir -p ${ODIR}
@@ -64,7 +64,7 @@ for CHR in {1..22}; do # you can also use xargs to parallelize, or sbatch depend
 
 	IN=../../step2_interchromosomal_phasing/data/SHAPEIT5/KGP.chr${CHR}.thorin_shapeit5.bcf # here, we use the inter-chromosomally phased data
 	UNR=../../step1_surrogate_parents/data/relatedness/unrelated/KGP.chr${CHR}.gsa.unrelated.bcf
-	MAP=/home/rhofmeis/Dropbox/Ressources/Git_repository/THORIN/maps/chr${CHR}.b38.gmap.gz
+	MAP=THORIN/maps/chr${CHR}.b38.gmap.gz # adapt path
 
 	OUT=${ODIR}/KGP.chr${CHR}.thorin.prob
 

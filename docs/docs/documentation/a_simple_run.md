@@ -36,7 +36,7 @@ UNR=data_chr20.unrelated_samples.bcf
 MAP=chr20.b38.gmap.gz
 OUT=data_chr20.thorin.prob
 
-./thorin_v1.2 -I ${IN} -H ${UNR} -M ${MAP} -R chr${CHR} -G ${GRP} -O ${OUT}
+./thorin_v1.3 -I ${IN} -H ${UNR} -M ${MAP} -R chr${CHR} -G ${GRP} -O ${OUT}
 
 ```
 </div>
@@ -55,7 +55,7 @@ UNR=data_chr20.unrelated_samples.bcf
 MAP=chr20.b38.gmap.gz
 OUT=data_chr20.thorin.prob.bcf
 
-./thorin_v1.2 -I ${IN} -H ${UNR} -M ${MAP} -R chr${CHR} -G ${GRP} -O ${OUT}
+./thorin_v1.3 -I ${IN} -H ${UNR} -M ${MAP} -R chr${CHR} -G ${GRP} -O ${OUT}
 
 ```
 </div>
@@ -76,7 +76,7 @@ MAP=chr20.b38.gmap.gz
 OUT=data_chr20.thorin.prob.bcf
 OUT_SEG=data_chr20.thorin_segments.prob
 
-./thorin_v1.2 -I ${IN} -H ${UNR} -M ${MAP} -R chr${CHR} -G ${GRP} -O ${OUT} --ibd ${OUT_SEG}
+./thorin_v1.3 -I ${IN} -H ${UNR} -M ${MAP} -R chr${CHR} -G ${GRP} -O ${OUT} --ibd ${OUT_SEG}
 
 ```
 </div>
@@ -96,7 +96,7 @@ MAP=chr20.b38.gmap.gz
 OUT=data_chr20.thorin.prob.bcf
 OUT_SCAF=data_chr20.thorin_scaffold.vcf.gz
 
-./thorin_v1.2 -I ${IN} -H ${UNR} -M ${MAP} -R chr${CHR} -G ${GRP} -O ${OUT} --scaffold ${OUT_SCAF}
+./thorin_v1.3 -I ${IN} -H ${UNR} -M ${MAP} -R chr${CHR} -G ${GRP} -O ${OUT} --scaffold ${OUT_SCAF}
 
 ```
 </div>
